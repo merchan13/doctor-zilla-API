@@ -6,8 +6,6 @@ class User < ApplicationRecord
 
   validates_presence_of :email, :document, :name, :lastname, :phone, :role
 
-  validates :email, uniqueness: { case_sensitive: false }
-
-  validates :document, uniqueness: { case_sensitive: false }
+  validates_uniqueness_of :email, :document
 
 end
