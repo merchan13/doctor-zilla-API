@@ -18,6 +18,7 @@ RSpec.describe User, type: :model do
   it { should respond_to(:lastname) }
   it { should respond_to(:phone) }
   it { should respond_to(:role) }
+  it { should respond_to(:auth_token) }
 
   it { should validate_confirmation_of(:password) }
 
