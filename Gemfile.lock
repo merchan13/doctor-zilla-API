@@ -180,6 +180,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  bcrypt
   byebug
   database_cleaner
   devise

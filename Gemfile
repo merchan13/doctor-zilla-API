@@ -13,6 +13,7 @@ gem 'puma', '~> 3.0'
 gem 'devise'
 gem 'devise-i18n'
 gem 'active_model_serializers'
+gem 'bcrypt'
 
 group :doc do
   gem 'sdoc', require: false
