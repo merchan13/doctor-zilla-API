@@ -5,6 +5,10 @@ RSpec.describe 'Users API', type: :request do
   let!(:users) { create_list(:user, 10) }
   let(:user_id) { users.first.id }
 
+  before :each do
+    stub_access_token
+  end
+
   # Test suite for GET /users
   describe 'GET /users' do
     # make HTTP get request before each example

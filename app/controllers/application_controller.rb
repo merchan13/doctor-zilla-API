@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
   helper_method :user_signed_in?, :current_user
 
   def user_signed_in?
-    current_person.present?
+    current_user.present?
   end
 
   def require_login!

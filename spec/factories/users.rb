@@ -8,5 +8,6 @@ FactoryGirl.define do
     lastname { Faker::Name.last_name }
     phone { Faker::PhoneNumber.cell_phone }
     role 'Doctor'
+    auth_token 'uniquetoken123'
   end
 end
