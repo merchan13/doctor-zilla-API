@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-  #devise_for :users, skip: [:registrations]
   resources :users
+  resources :medical_records, except: :create
+  #resources :user_medical_records, only: [:create, :update]
 
   post 'sign-in', to: 'sessions#create'
   delete 'sign-out', to: 'sessions#destroy'

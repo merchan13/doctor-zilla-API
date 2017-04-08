@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login!, only: [:create]
 
+  # POST /sign-in
   def create
     resource = User.find_for_database_authentication(:email => params[:user_login][:email])
     return invalid_login_attempt unless resource
@@ -14,6 +15,7 @@ class SessionsController < ApplicationController
 
   end
 
+  # DELETE /sign-out
   def destroy
     resource = current_user
     resource.invalidate_auth_token
