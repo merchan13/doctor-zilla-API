@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   # Association test
-  # ensure User model has a 1:m relationship with the X model
-  #it { should have_many(:items).dependent(:destroy) }
+  # ensure User model has a n:m relationship with the MedicalRecord model
+  it { should have_many(:medical_records).through(:user_medical_records) }
+  # ensure User model has a 1:m relationship with the UserMedicalRecord model
+  it { should have_many(:user_medical_records) }
 
   # Validation tests
   let(:user) { FactoryGirl.build(:user) }

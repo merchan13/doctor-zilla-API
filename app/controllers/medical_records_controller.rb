@@ -1,5 +1,5 @@
 class MedicalRecordsController < ApplicationController
-  before_action :set_record, only: [:edit, :update, :show]
+  before_action :set_record, only: [:show, :update, :destroy]
 
   # GET /medical_records
   def index
