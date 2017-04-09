@@ -4,6 +4,7 @@ RSpec.describe 'Medical Records API', type: :request do
   # initialize test data
   let!(:user) { create(:user) }
   let!(:records) { create_list(:medical_record, 10) }
+  let(:medical_record_id) { records.first.id }
   #let(:user_medical_records) {
   #  records.each do |record|
   #    create(:user_medical_record, user_id: user.id, medical_record_id: record.id)
@@ -31,13 +32,13 @@ RSpec.describe 'Medical Records API', type: :request do
   end
 
   # Test suite for GET /users/:id
-  describe 'GET /users/:id' do
-    before { get "/users/#{user_id}" }
+  describe 'GET /medical_records/:id' do
+    before { get "/medical_records/#{medical_record_id}" }
 
     context 'when the record exists' do
-      it 'returns the user' do
+      it 'returns the medical record' do
         expect(json).not_to be_empty
-        expect(json['id']).to eq(user_id)
+        expect(json['id']).to eq(medical_record_id)
       end
 
       it 'returns status code 200' do
@@ -46,24 +47,24 @@ RSpec.describe 'Medical Records API', type: :request do
     end
 
     context 'when the record does not exist' do
-      let(:user_id) { 100 }
+      let(:medical_record_id) { 100 }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find User/)
+        expect(response.body).to match(/Couldn't find MedicalRecord/)
       end
     end
   end
 
   # Test suite for PUT /users/:id
-  describe 'PUT /users/:id' do
-    let(:valid_attributes) { { name: 'Jane' } }
+  describe 'PUT /medical_records/:id' do
+    let(:valid_attributes) { { medical_record: { name: 'Dick' } } }
 
     context 'when the record exists' do
-      before { put "/users/#{user_id}", params: valid_attributes }
+      before { put "/medical_records/#{medical_record_id}", params: valid_attributes }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -76,8 +77,8 @@ RSpec.describe 'Medical Records API', type: :request do
   end
 
   # Test suite for DELETE /users/:id
-  describe 'DELETE /users/:id' do
-    before { delete "/users/#{user_id}" }
+  describe 'DELETE /medical_records/:id' do
+    before { delete "/medical_records/#{medical_record_id}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
