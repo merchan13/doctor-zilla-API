@@ -5,11 +5,6 @@ RSpec.describe 'Medical Records API', type: :request do
   let!(:user) { create(:user) }
   let!(:records) { create_list(:medical_record, 10) }
   let(:medical_record_id) { records.first.id }
-  #let(:user_medical_records) {
-  #  records.each do |record|
-  #    create(:user_medical_record, user_id: user.id, medical_record_id: record.id)
-  #  end
-  #  }
 
   before :each do
     stub_access_token

@@ -14,5 +14,10 @@ FactoryGirl.define do
     referred_by { Faker::Name.first_name }
     profile_picture 'perfil.jpg'
     representative_document { "V-#{Faker::Number.number(10)}" }
+
+    after(:create) do
+      UserMedicalRecord.create(user_id: 1, medical_record_id: MedicalRecord.last.id) 
+    end
+
   end
 end
