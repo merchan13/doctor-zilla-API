@@ -19,12 +19,6 @@ class MedicalRecordsController < ApplicationController
     head :no_content
   end
 
-  # DELETE /medical_records/:id
-  def destroy
-    @record.destroy
-    head :no_content
-  end
-
   private
     def record_params
       params.require(:medical_record).permit( :document, :document_type, :first_consultation_date, :name, :last_name,

@@ -17,7 +17,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should respond_to(:first_consultation_date) }
   it { should respond_to(:name) }
   it { should respond_to(:last_name) }
-  it { should respond_to(:birth_date) }
+  it { should respond_to(:birthday) }
   it { should respond_to(:gender) }
   it { should respond_to(:phone_number) }
   it { should respond_to(:cellphone_number) }
@@ -32,7 +32,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should validate_presence_of(:first_consultation_date) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:last_name) }
-  it { should validate_presence_of(:birth_date) }
+  it { should validate_presence_of(:birthday) }
   it { should validate_presence_of(:gender) }
   it { should validate_presence_of(:phone_number) }
 
@@ -41,7 +41,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should allow_value('2016/12/31').for(:first_consultation_date) }
   it { should allow_value('Javier Alonso').for(:name) }
   it { should allow_value('Doe Wick').for(:last_name) }
-  it { should allow_value('2016/12/31').for(:birth_date) }
+  it { should allow_value('2016/12/31').for(:birthday) }
   it { should allow_value('Masculino').for(:gender) }
   it { should allow_value('+582125555555').for(:phone_number) }
   it { should allow_value('+584145555555').for(:cellphone_number) }

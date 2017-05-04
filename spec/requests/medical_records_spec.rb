@@ -71,13 +71,4 @@ RSpec.describe 'Medical Records API', type: :request do
     end
   end
 
-  # Test suite for DELETE /users/:id
-  describe 'DELETE /medical_records/:id' do
-    before { delete "/medical_records/#{medical_record_id}" }
-
-    it 'returns status code 204' do
-      expect(response).to have_http_status(204)
-    end
-  end
-
 end

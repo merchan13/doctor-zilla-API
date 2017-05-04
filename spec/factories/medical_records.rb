@@ -5,7 +5,7 @@ FactoryGirl.define do
     first_consultation_date '2017/01/01'
     name { Faker::Name.first_name }
     last_name { Faker::Name.first_name }
-    birth_date '1995/05/13'
+    birthday '1995/05/13'
     gender 'Masculino'
     phone_number { Faker::PhoneNumber.cell_phone }
     cellphone_number { Faker::PhoneNumber.cell_phone }
@@ -16,7 +16,7 @@ FactoryGirl.define do
     representative_document { "V-#{Faker::Number.number(10)}" }
 
     after(:create) do
-      UserMedicalRecord.create(user_id: 1, medical_record_id: MedicalRecord.last.id) 
+      UserMedicalRecord.create(user_id: 1, medical_record_id: MedicalRecord.last.id)
     end
 
   end

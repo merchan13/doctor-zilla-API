@@ -14,6 +14,11 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'active_model_serializers'
 gem 'bcrypt'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
+gem 'fog-aws'
+gem 'figaro'
 
 group :doc do
   gem 'sdoc', require: false
