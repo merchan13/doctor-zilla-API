@@ -2,13 +2,15 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   # Association test
-  # ensure User model has a n:m relationship with the MedicalRecord model
+  # ensure User model has a n:m relationship with other model
   it { should have_many(:medical_records).through(:user_medical_records) }
-  # ensure User model has a 1:m relationship with the UserMedicalRecord model
+  it { should have_many(:assistants).through(:assistantships) }
+  # ensure User model has a 1:m relationship with other model
   it { should have_many(:user_medical_records) }
+  it { should have_many(:assistantships) }
 
   # Validation tests
-  let(:user) { FactoryGirl.build(:user) }
+  let(:user) { FactoryGirl.create(:user, name: 'Javier Alonso', lastname: 'Merchan Salazar') }
 
   subject { user }
 
@@ -43,5 +45,26 @@ RSpec.describe User, type: :model do
   it { should allow_value('Doctor').for(:role) }
 
   it { should be_valid }
+
+  # Methods tests
+  describe 'full_name' do
+    it "returns user's full name" do
+      expect(user.full_name).to eq('Javier Merchan Salazar')
+    end
+  end
+
+  describe 'generate_auth_token' do
+    it "returns new heaxadecimal token" do
+      token = user.generate_auth_token
+      expect(user.auth_token).to eq(token)
+    end
+  end
+
+  describe 'invalidate_auth_token' do
+    it "'nullify' token column" do
+      user.invalidate_auth_token
+      expect(user.auth_token).to eq(nil)
+    end
+  end
 
 end

@@ -4,6 +4,7 @@ RSpec.describe 'Sessions API', type: :request do
 
   # initialize test data
   let!(:user) { create(:user, password: 'qwerty123') }
+  let!(:user_assistant) { create(:user, password: 'qwerty123', role: 'Assistant') }
 
   before :each do
     stub_access_token
@@ -37,6 +38,19 @@ RSpec.describe 'Sessions API', type: :request do
       it 'returns a validation failure message' do
         expect(response.body)
           .to match(/Error with your login or password/)
+      end
+    end
+
+    context 'when the request valid, but user is not a Doctor' do
+      before { post '/sign-in', params: { user_login: { email: user_assistant.email, password: 'qwerty123' } } }
+
+      it 'returns status code 401' do
+        expect(response).to have_http_status(401)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body)
+          .to match(/Only Doctors can access this application/)
       end
     end
   end

@@ -7,8 +7,12 @@ class SessionsController < ApplicationController
     return invalid_login_attempt unless resource
 
     if resource.valid_password?(params[:user_login][:password])
-      auth_token = resource.generate_auth_token
-      render json: { auth_token: auth_token }
+      if resource.role == 'Doctor'
+        auth_token = resource.generate_auth_token
+        render json: { auth_token: auth_token }
+      else
+        invalid_role
+      end
     else
       invalid_login_attempt
     end
@@ -25,6 +29,10 @@ class SessionsController < ApplicationController
   private
     def invalid_login_attempt
       render json: { errors: [ { detail:"Error with your login or password" }]}, status: 401
+    end
+
+    def invalid_role
+      render json: { errors: [ { detail:"Only Doctors can access this application" }]}, status: 401
     end
 
 end

@@ -3,7 +3,6 @@ class MedicalRecordsController < ApplicationController
 
   # GET /medical_records
   def index
-    #@records = MedicalRecord.all
     @records = current_user.medical_records
     json_response(@records)
   end
