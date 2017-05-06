@@ -71,4 +71,35 @@ RSpec.describe 'Medical Records API', type: :request do
     end
   end
 
+  # Test suite for GET /search_records
+  describe 'GET /search_records' do
+    before :each do
+      FactoryGirl.create(:medical_record, document:'11', name:'John', last_name:'Perez')
+      FactoryGirl.create(:medical_record, document:'12', name:'Mary', last_name:'Perez')
+      FactoryGirl.create(:medical_record, document:'13', name:'Jose', last_name:'Perez')
+      FactoryGirl.create(:medical_record, document:'33', name:'Jane', last_name:'Rodriguez')
+    end
+
+    context "when the search it's successful" do
+      before { get "/search_records", params: { search_param: 'Perez' } }
+      it 'returns the medical records' do
+        expect(json).not_to be_empty
+        expect(json.size).to eq(3)
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context "when the search param doesn't match" do
+      before { get "/search_records", params: { search_param: 'Zandra' } }
+
+      it 'returns zero records' do
+        expect(json).to be_empty
+      end
+    end
+
+  end
+
 end

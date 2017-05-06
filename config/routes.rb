@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   resources :reasons,           only: [:index, :show]
   resources :users
 
+  get 'search_records', to: 'medical_records#search'
+
   post 'sign-in', to: 'sessions#create'
   delete 'sign-out', to: 'sessions#destroy'
 

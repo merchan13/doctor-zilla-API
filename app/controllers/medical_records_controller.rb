@@ -18,6 +18,12 @@ class MedicalRecordsController < ApplicationController
     head :no_content
   end
 
+  # GET /search_records
+  def search
+    @records = current_user.medical_records.search(params[:search_param])
+    json_response(@records)
+  end
+
   private
     def record_params
       params.require(:medical_record).permit( :document, :document_type, :first_consultation_date, :name, :last_name,

@@ -14,7 +14,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should belong_to(:occupation) }
 
   # Validation tests
-  let(:record) { FactoryGirl.create(:medical_record ) }
+  let(:record) { FactoryGirl.create(:medical_record) }
 
   subject { record }
 
@@ -91,24 +91,83 @@ RSpec.describe MedicalRecord, type: :model do
     it "returns imc from the latest data"
   end
 
-  describe 'self.search' do
-    it "returns search results"
-  end
+  describe "Class methods" do
+    before :each do
+      FactoryGirl.create(:medical_record, document:'11', name:'John', last_name:'Perez')
+      FactoryGirl.create(:medical_record, document:'12', name:'Mary', last_name:'Perez')
+      FactoryGirl.create(:medical_record, document:'13', name:'Jose', last_name:'Perez')
+      FactoryGirl.create(:medical_record, document:'33', name:'Jane', last_name:'Rodriguez')
+    end
 
-  describe 'self.name_matches' do
-    it "returns records that matches a name"
-  end
+    describe 'search' do
+      context "matching results" do
+        it "returns search results" do
+          expect(MedicalRecord.search('Perez').count).to eq(3)
+        end
+      end
 
-  describe 'self.last_name_matches' do
-    it "returns records that matches a lastname"
-  end
+      context "non-matching results" do
+        it "returns zero results" do
+          expect(MedicalRecord.search('Zandra').count).to eq(0)
+        end
+      end
+    end
 
-  describe 'self.document_matches' do
-    it "returns records that matches a document"
-  end
+    describe 'name_matches' do
+      context "matching results" do
+        it "returns search results" do
+          expect(MedicalRecord.name_matches('Jo').count).to eq(2)
+        end
+      end
 
-  describe 'self.matches' do
-      it "returns record that matches a param"
+      context "non-matching results" do
+        it "returns zero results" do
+          expect(MedicalRecord.name_matches('Zandra').count).to eq(0)
+        end
+      end
+    end
+
+    describe 'last_name_matches' do
+      context "matching results" do
+        it "returns search results" do
+          expect(MedicalRecord.last_name_matches('Perez').count).to eq(3)
+        end
+      end
+
+      context "non-matching results" do
+        it "returns zero results" do
+          expect(MedicalRecord.last_name_matches('Merchan').count).to eq(0)
+        end
+      end
+    end
+
+    describe 'document_matches' do
+      context "matching results" do
+        it "returns search results" do
+          expect(MedicalRecord.document_matches('1').count).to eq(3)
+        end
+      end
+
+      context "non-matching results" do
+        it "returns zero results" do
+          expect(MedicalRecord.document_matches('9').count).to eq(0)
+        end
+      end
+    end
+
+    describe 'matches' do
+      context "matching results" do
+        it "returns search results" do
+          expect(MedicalRecord.matches('last_name','Perez').count).to eq(3)
+        end
+      end
+
+      context "non-matching results" do
+        it "returns zero results" do
+          expect(MedicalRecord.matches('document','99').count).to eq(0)
+        end
+      end
+    end
   end
 
 end
