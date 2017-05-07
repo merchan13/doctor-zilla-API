@@ -5,7 +5,7 @@ FactoryGirl.define do
     first_consultation_date '2017/01/01'
     name { 'Javier Alonso' }
     last_name { 'Merchan Salazar' }
-    birthday '1995/05/13'
+    birthday { 21.years.ago }
     gender 'Masculino'
     phone_number { Faker::PhoneNumber.cell_phone }
     cellphone_number { Faker::PhoneNumber.cell_phone }

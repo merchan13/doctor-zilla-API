@@ -15,4 +15,8 @@ RSpec.describe Insurance, type: :model do
 
   it { should validate_uniqueness_of(:name) }
 
+  it { should allow_value('Nombre').for(:name) }
+
+  it { should be_valid(:insurance) }
+
 end
