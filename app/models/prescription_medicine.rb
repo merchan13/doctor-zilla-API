@@ -3,5 +3,5 @@ class PrescriptionMedicine < ApplicationRecord
   belongs_to :medicine
 
   validates_presence_of :dose_way, :dose_presentation, :dose_quantity, :dose_unit, :interval_quantity, :interval_unit,
-                        :interval_time, :duration_quantity, :duration_unit
+                        :interval_time, :duration_quantity, :duration_unit, :prescription_id, :medicine_id
 end

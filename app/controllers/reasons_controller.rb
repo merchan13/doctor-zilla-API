@@ -2,7 +2,7 @@ class ReasonsController < ApplicationController
 
   # GET /reasons
   def index
-    @reasons = reason.all
+    @reasons = Reason.all
     json_response(@reasons)
   end
 
