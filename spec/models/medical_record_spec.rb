@@ -58,7 +58,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should allow_value('profile_picture01.jpg').for(:profile_picture) }
   it { should allow_value('V-9555555').for(:representative_document) }
 
-  it { should be_valid(:record) }
+  it { should be_valid(record) }
 
   # Methods tests
   describe 'full_name' do

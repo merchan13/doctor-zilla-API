@@ -8,7 +8,7 @@ class ReasonsController < ApplicationController
 
   # GET /reasons/:id
   def show
-    @reason = reason.find(params[:id])
+    @reason = Reason.find(params[:id])
     json_response(@reason)
   end
 

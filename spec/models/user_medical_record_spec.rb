@@ -18,4 +18,6 @@ RSpec.describe UserMedicalRecord, type: :model do
   it { should validate_presence_of(:user_id) }
   it { should validate_presence_of(:medical_record_id) }
 
+  it { should be_valid(user_record) }
+
 end

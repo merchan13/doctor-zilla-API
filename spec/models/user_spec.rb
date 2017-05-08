@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
   it { should allow_value('58 212 5555555').for(:phone) }
   it { should allow_value('Doctor').for(:role) }
 
-  it { should be_valid }
+  it { should be_valid(user) }
 
   # Methods tests
   describe 'full_name' do

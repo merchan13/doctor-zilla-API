@@ -15,6 +15,6 @@ RSpec.describe Diagnostic, type: :model do
 
   it { should allow_value('Descripcion').for(:description) }
 
-  it { should be_valid(:diagnostic) }
+  it { should be_valid(diagnostic) }
 
 end

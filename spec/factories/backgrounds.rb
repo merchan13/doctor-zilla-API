@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :background do
-    background_type 'cc'
-    description 'Descripcion X'
     consultation
+    background_type 'family'
+    description 'Descripcion X'
   end
 end

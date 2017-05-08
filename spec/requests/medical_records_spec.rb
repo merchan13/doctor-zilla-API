@@ -9,6 +9,7 @@ RSpec.describe 'Medical Records API', type: :request do
   before :each do
     stub_access_token
     stub_current_user(user)
+    user.medical_records << records
   end
 
   # Test suite for GET /medical_records
@@ -78,9 +79,11 @@ RSpec.describe 'Medical Records API', type: :request do
       FactoryGirl.create(:medical_record, document:'12', name:'Mary', last_name:'Perez')
       FactoryGirl.create(:medical_record, document:'13', name:'Jose', last_name:'Perez')
       FactoryGirl.create(:medical_record, document:'33', name:'Jane', last_name:'Rodriguez')
+
+      user.medical_records << MedicalRecord.all
     end
 
-    context "when the search it's successful" do
+    context "when the search is successful" do
       before { get "/search_records", params: { search_param: 'Perez' } }
       it 'returns the medical records' do
         expect(json).not_to be_empty

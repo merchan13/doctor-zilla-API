@@ -20,6 +20,12 @@ RSpec.describe Consultation, type: :model do
   subject { consultation }
 
   it { should respond_to(:evolution) }
+  it { should respond_to(:note) }
+  it { should respond_to(:affliction) }
+  it { should respond_to(:weight) }
+  it { should respond_to(:height) }
+  it { should respond_to(:pressure_s) }
+  it { should respond_to(:pressure_d) }
 
   it { should allow_value('Evolucion').for(:evolution) }
   it { should allow_value('Nota').for(:note) }
@@ -29,7 +35,7 @@ RSpec.describe Consultation, type: :model do
   it { should allow_value('999').for(:pressure_d) }
   it { should allow_value('999').for(:pressure_s) }
 
-  it { should be_valid(:consultation) }
+  it { should be_valid(consultation) }
 
   # Methods tests
   describe 'imc' do

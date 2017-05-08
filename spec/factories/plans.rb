@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :plan do
-    description 'Plan X'
-    emergency false
     consultation
+    description { Faker::StarWars.quote }
+    emergency false
   end
 end

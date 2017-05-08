@@ -17,7 +17,7 @@ RSpec.describe 'Consultations API', type: :request do
     # make HTTP get request before each example
     before { get '/consultations', params: { record: consultation.medical_record.id } }
 
-    it 'returns medical consultations' do
+    it 'returns consultations' do
       expect(json).not_to be_empty
       expect(json.size).to eq(3)
     end
@@ -32,7 +32,7 @@ RSpec.describe 'Consultations API', type: :request do
     before { get "/consultations/#{consultation_id}" }
 
     context 'when the record exists' do
-      it 'returns the medical consultation' do
+      it 'returns the consultation' do
         expect(json).not_to be_empty
         expect(json['id']).to eq(consultation_id)
       end
