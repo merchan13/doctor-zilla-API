@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   get 'plans/:plan_id/procedures', to: 'procedures#index_plan', as: 'plan_procedures'
   get 'procedures/:procedure_id/plans', to: 'plans#index_procedure', as: 'procedures_plan'
 
+  get 'prescriptions/:prescription_id/medicines', to: 'medicines#index_prescription', as: 'prescription_medicines'
+  get 'medicines/:medicine_id/prescriptions', to: 'prescriptions#index_medicine', as: 'medicines_prescription'
+
   get 'search_records', to: 'medical_records#search'
 
   post 'sign-in', to: 'sessions#create'
