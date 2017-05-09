@@ -6,4 +6,6 @@ class Attachment < ApplicationRecord
   validates_processing_of :url
 
   belongs_to :medical_record
+
+  validates_presence_of :description, :url, :medical_record_id
 end
