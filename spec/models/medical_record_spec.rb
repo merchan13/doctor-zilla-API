@@ -79,93 +79,106 @@ RSpec.describe MedicalRecord, type: :model do
     end
   end
 
+  # Data set up for specific methods below
+  before do
+    FactoryGirl.create(:medical_record, document:'11', name:'John', last_name:'Perez')
+    FactoryGirl.create(:medical_record, document:'12', name:'Mary', last_name:'Perez')
+    FactoryGirl.create(:medical_record, document:'13', name:'Jose', last_name:'Perez')
+    FactoryGirl.create(:medical_record, document:'33', name:'Jane', last_name:'Rodriguez')
+    FactoryGirl.create(:consultation, medical_record: MedicalRecord.last, weight: 80, height: 180, pressure_d:'110', pressure_s:'80')
+    FactoryGirl.create(:background, consultation: Consultation.last)
+    FactoryGirl.create(:background, consultation: Consultation.last)
+    FactoryGirl.create(:background, consultation: Consultation.last)
+  end
+
   describe 'backgrounds' do
-    it "returns all the backgrounds"
+    it "returns a hash with all the backgrounds" do
+      expect(MedicalRecord.last.backgrounds['Familiares'].size).to eq(3)
+    end
   end
 
   describe 'physic_data' do
-    it "returns all the physic data"
+    it "returns all the physic data" do
+      expect(MedicalRecord.last.physic_data['weight']).to eq(80)
+      expect(MedicalRecord.last.physic_data['height']).to eq(180)
+      expect(MedicalRecord.last.physic_data['pressure_d']).to eq('110')
+      expect(MedicalRecord.last.physic_data['pressure_s']).to eq('80')
+    end
   end
 
   describe 'imc' do
-    it "returns imc from the latest data"
+    it "returns imc from the latest data" do
+      expect(MedicalRecord.last.imc.round(2)).to eq(24.69)
+    end
   end
 
-  describe "Class methods" do
-    before :each do
-      FactoryGirl.create(:medical_record, document:'11', name:'John', last_name:'Perez')
-      FactoryGirl.create(:medical_record, document:'12', name:'Mary', last_name:'Perez')
-      FactoryGirl.create(:medical_record, document:'13', name:'Jose', last_name:'Perez')
-      FactoryGirl.create(:medical_record, document:'33', name:'Jane', last_name:'Rodriguez')
-    end
-
-    describe 'search' do
-      context "matching results" do
-        it "returns search results" do
-          expect(MedicalRecord.search('Perez').count).to eq(3)
-        end
-      end
-
-      context "non-matching results" do
-        it "returns zero results" do
-          expect(MedicalRecord.search('Zandra').count).to eq(0)
-        end
+  # Class methods
+  describe 'search' do
+    context "matching results" do
+      it "returns search results" do
+        expect(MedicalRecord.search('Perez').count).to eq(3)
       end
     end
 
-    describe 'name_matches' do
-      context "matching results" do
-        it "returns search results" do
-          expect(MedicalRecord.name_matches('Jo').count).to eq(2)
-        end
+    context "non-matching results" do
+      it "returns zero results" do
+        expect(MedicalRecord.search('Zandra').count).to eq(0)
       end
+    end
+  end
 
-      context "non-matching results" do
-        it "returns zero results" do
-          expect(MedicalRecord.name_matches('Zandra').count).to eq(0)
-        end
+  describe 'name_matches' do
+    context "matching results" do
+      it "returns search results" do
+        expect(MedicalRecord.name_matches('Jo').count).to eq(2)
       end
     end
 
-    describe 'last_name_matches' do
-      context "matching results" do
-        it "returns search results" do
-          expect(MedicalRecord.last_name_matches('Perez').count).to eq(3)
-        end
+    context "non-matching results" do
+      it "returns zero results" do
+        expect(MedicalRecord.name_matches('Zandra').count).to eq(0)
       end
+    end
+  end
 
-      context "non-matching results" do
-        it "returns zero results" do
-          expect(MedicalRecord.last_name_matches('Merchan').count).to eq(0)
-        end
+  describe 'last_name_matches' do
+    context "matching results" do
+      it "returns search results" do
+        expect(MedicalRecord.last_name_matches('Perez').count).to eq(3)
       end
     end
 
-    describe 'document_matches' do
-      context "matching results" do
-        it "returns search results" do
-          expect(MedicalRecord.document_matches('1').count).to eq(3)
-        end
+    context "non-matching results" do
+      it "returns zero results" do
+        expect(MedicalRecord.last_name_matches('Merchan').count).to eq(0)
       end
+    end
+  end
 
-      context "non-matching results" do
-        it "returns zero results" do
-          expect(MedicalRecord.document_matches('9').count).to eq(0)
-        end
+  describe 'document_matches' do
+    context "matching results" do
+      it "returns search results" do
+        expect(MedicalRecord.document_matches('1').count).to eq(3)
       end
     end
 
-    describe 'matches' do
-      context "matching results" do
-        it "returns search results" do
-          expect(MedicalRecord.matches('last_name','Perez').count).to eq(3)
-        end
+    context "non-matching results" do
+      it "returns zero results" do
+        expect(MedicalRecord.document_matches('9').count).to eq(0)
       end
+    end
+  end
 
-      context "non-matching results" do
-        it "returns zero results" do
-          expect(MedicalRecord.matches('document','99').count).to eq(0)
-        end
+  describe 'matches' do
+    context "matching results" do
+      it "returns search results" do
+        expect(MedicalRecord.matches('last_name','Perez').count).to eq(3)
+      end
+    end
+
+    context "non-matching results" do
+      it "returns zero results" do
+        expect(MedicalRecord.matches('document','99').count).to eq(0)
       end
     end
   end
