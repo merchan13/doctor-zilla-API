@@ -1,5 +1,5 @@
 class MedicalRecordsController < ApplicationController
-  before_action :set_record, only: [:show, :update, :physic_data, :backgrounds]
+  before_action :set_record, only: [:show, :update]
 
   # GET /medical_records
   def index
@@ -9,10 +9,10 @@ class MedicalRecordsController < ApplicationController
 
   # GET /medical_records/:id
   def show
-    json = {  :address => @records.address,
+    json = {  :address => @record.address,
               :background => @record.backgrounds,
               :birthday => @record.birthday,
-              :cellphone_number: => @record.cellphone_number,
+              :cellphone_number => @record.cellphone_number,
               :created_at => @record.created_at,
               :document => @record.document,
               :document_type => @record.document_type,
@@ -25,7 +25,7 @@ class MedicalRecordsController < ApplicationController
               :name => @record.name,
               :occupation_id => @record.occupation.name,
               :phone_number => @record.phone_number,
-              :physic_data => @record.physic_data
+              :physic_data => @record.physic_data,
               :profile_picture => @record.profile_picture.url,
               :referred_by => @record.referred_by,
               :representative_document => @record.representative_document,
@@ -44,16 +44,6 @@ class MedicalRecordsController < ApplicationController
   def search
     @records = current_user.medical_records.search(params[:search_param])
     json_response(@records)
-  end
-
-  # GET /medical_records/physic_data/:id
-  def physic_data
-    json_response(@record.physic_data)
-  end
-
-  # GET /medical_records/backgrounds/:id
-  def physic_data
-    json_response(@record.backgrounds)
   end
 
   private

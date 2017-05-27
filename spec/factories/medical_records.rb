@@ -14,5 +14,7 @@ FactoryGirl.define do
     referred_by { Faker::Name.first_name }
     profile_picture 'perfil.jpg'
     representative_document { "V-#{Faker::Number.number(10)}" }
+    insurance
+    occupation
   end
 end
