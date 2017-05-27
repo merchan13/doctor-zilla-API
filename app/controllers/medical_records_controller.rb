@@ -4,13 +4,41 @@ class MedicalRecordsController < ApplicationController
   # GET /medical_records
   def index
     @records = current_user.medical_records
-    json_response(@records)
+    json = Array.new
+
+    @records.each do |r|
+      parsedRecord = {  :address => r.address,
+                        :backgrounds => r.backgrounds,
+                        :birthday => r.birthday,
+                        :cellphone_number => r.cellphone_number,
+                        :created_at => r.created_at,
+                        :document => r.document,
+                        :document_type => r.document_type,
+                        :email => r.email,
+                        :first_consultation_date => r.first_consultation_date,
+                        :gender => r.gender,
+                        :id => r.id,
+                        :insurance => r.insurance.name,
+                        :last_name => r.last_name,
+                        :name => r.name,
+                        :occupation => r.occupation.name,
+                        :phone_number => r.phone_number,
+                        :physic_data => r.physic_data,
+                        :profile_picture => r.profile_picture.url,
+                        :referred_by => r.referred_by,
+                        :representative_document => r.representative_document,
+                        :updated_at => r.updated_at
+                      }
+      json << parsedRecord
+    end
+
+    json_response(json)
   end
 
   # GET /medical_records/:id
   def show
     json = {  :address => @record.address,
-              :background => @record.backgrounds,
+              :backgrounds => @record.backgrounds,
               :birthday => @record.birthday,
               :cellphone_number => @record.cellphone_number,
               :created_at => @record.created_at,
@@ -23,7 +51,7 @@ class MedicalRecordsController < ApplicationController
               :insurance => @record.insurance.name,
               :last_name => @record.last_name,
               :name => @record.name,
-              :occupation_id => @record.occupation.name,
+              :occupation => @record.occupation.name,
               :phone_number => @record.phone_number,
               :physic_data => @record.physic_data,
               :profile_picture => @record.profile_picture.url,
