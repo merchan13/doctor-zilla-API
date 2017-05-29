@@ -3,15 +3,17 @@ require 'rails_helper'
 RSpec.describe 'Medical Records API', type: :request do
   # initialize test data
   let!(:user) { create(:user) }
-  let!(:occupation) { create(:occupation) }
-  let!(:insurance) { create(:insurance) }
-  let!(:records) { create_list(:medical_record, 10, occupation: occupation, insurance: insurance) }
+  let!(:records) { create_list(:medical_record, 10) }
   let(:medical_record_id) { records.first.id }
 
   before :each do
     stub_access_token
     stub_current_user(user)
     user.medical_records << records
+    FactoryGirl.create(:occupation)
+    FactoryGirl.create(:insurance)
+    Occupation.last.medical_records << user.medical_records
+    Insurance.last.medical_records << user.medical_records
   end
 
   # Test suite for GET /medical_records

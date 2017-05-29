@@ -41,11 +41,11 @@ class MedicalRecordsController < ApplicationController
               :backgrounds => @record.backgrounds,
               :birthday => @record.birthday,
               :cellphone_number => @record.cellphone_number,
-              :created_at => @record.created_at,
+              :created_at => @record.created_at.to_formatted_s(:iso8601),
               :document => @record.document,
               :document_type => @record.document_type,
               :email => @record.email,
-              :first_consultation_date => @record.first_consultation_date,
+              :first_consultation_date => @record.first_consultation_date.to_formatted_s(:iso8601),
               :gender => @record.gender,
               :id => @record.id,
               :insurance => @record.insurance.name,
@@ -57,7 +57,7 @@ class MedicalRecordsController < ApplicationController
               :profile_picture => @record.profile_picture.url,
               :referred_by => @record.referred_by,
               :representative_document => @record.representative_document,
-              :updated_at => @record.updated_at
+              :updated_at => @record.updated_at.to_formatted_s(:iso8601)
             }
     json_response(json)
   end
