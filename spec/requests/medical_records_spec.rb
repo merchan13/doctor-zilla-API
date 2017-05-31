@@ -10,10 +10,6 @@ RSpec.describe 'Medical Records API', type: :request do
     stub_access_token
     stub_current_user(user)
     user.medical_records << records
-    FactoryGirl.create(:occupation)
-    FactoryGirl.create(:insurance)
-    Occupation.last.medical_records << user.medical_records
-    Insurance.last.medical_records << user.medical_records
   end
 
   # Test suite for GET /medical_records
