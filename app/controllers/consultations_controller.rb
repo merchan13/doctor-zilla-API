@@ -22,7 +22,7 @@ class ConsultationsController < ApplicationController
                               :reason => c.reason,
                               :updated_at => c.updated_at.to_formatted_s(:iso8601),
                               :weight => c.weight,
-                              :backgrounds => c.backgrounds,
+                              :backgrounds => c.parsedBackgrounds,
                               :physical_exams => c.physical_exams
                             }
       json << parsedConsultation

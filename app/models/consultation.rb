@@ -16,4 +16,10 @@ class Consultation < ApplicationRecord
     result = self.weight/((self.height/100) ** 2)
   end
 
+  def parsedBackgrounds
+    self.backgrounds.each do |b|
+      b.background_type = b.type_es
+    end
+  end
+
 end

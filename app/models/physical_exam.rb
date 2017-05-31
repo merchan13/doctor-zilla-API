@@ -7,15 +7,15 @@ class PhysicalExam < ApplicationRecord
     en = self.exam_type
 
     es = case en
-    when 'Head and Neck' then "Cabeza y Cuello"
-    when 'Chest' then "Tórax"
-    when 'Abdomen' then "Abdomen"
-    when 'Genitals' then "Genitales"
-    when 'Soft Parts' then "Partes blandas"
-    when 'Extremities' then "Extremidades"
-    when 'Vascular' then "Vascular"
-    when 'Skin' then "Piel"
-    when 'Mamma' then "Mamas"
+      when 'Head and Neck' then "Cabeza y Cuello"
+      when 'Chest' then "Tórax"
+      when 'Abdomen' then "Abdomen"
+      when 'Genitals' then "Genitales"
+      when 'Soft Parts' then "Partes blandas"
+      when 'Extremities' then "Extremidades"
+      when 'Vascular' then "Vascular"
+      when 'Skin' then "Piel"
+      when 'Mamma' then "Mamas"
       when 'Others' then "Otros"
       else "Unknown"
     end
