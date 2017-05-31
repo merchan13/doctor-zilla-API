@@ -11,11 +11,11 @@ class MedicalRecordsController < ApplicationController
                         :backgrounds => r.backgrounds,
                         :birthday => r.birthday,
                         :cellphone_number => r.cellphone_number,
-                        :created_at => r.created_at,
+                        :created_at => r.created_at.to_formatted_s(:iso8601),
                         :document => r.document,
                         :document_type => r.document_type,
                         :email => r.email,
-                        :first_consultation_date => r.first_consultation_date,
+                        :first_consultation_date => r.first_consultation_date.to_formatted_s(:iso8601),
                         :gender => r.gender,
                         :id => r.id,
                         :insurance => r.insurance.name,
@@ -27,7 +27,7 @@ class MedicalRecordsController < ApplicationController
                         :profile_picture => r.profile_picture.url,
                         :referred_by => r.referred_by,
                         :representative_document => r.representative_document,
-                        :updated_at => r.updated_at
+                        :updated_at => r.updated_at.to_formatted_s(:iso8601)
                       }
       json << parsedRecord
     end

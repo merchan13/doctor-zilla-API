@@ -5,12 +5,49 @@ class ConsultationsController < ApplicationController
   # GET /consultations
   def index
     @consultations = @record.consultations
-    json_response(@consultations)
+    json = Array.new
+
+    @consultations.each do |c|
+      parsedConsultation = {  :affliction => c.affliction,
+                              :created_at => c.created_at.to_formatted_s(:iso8601),
+                              :diagnostic => c.diagnostic,
+                              :evolution => c.evolution,
+                              :height => c.height,
+                              :id => c.id,
+                              :medical_record_id => c.medical_record_id,
+                              :note => c.note,
+                              :plan => c.plan,
+                              :pressure_s => c.pressure_s,
+                              :pressure_d => c.pressure_d,
+                              :reason => c.reason,
+                              :updated_at => c.updated_at.to_formatted_s(:iso8601),
+                              :weight => c.weight
+                            }
+      json << parsedConsultation
+    end
+
+    json_response(json)
   end
 
   # GET /consultations/:id
   def show
-    json_response(@consultation)
+    json = {
+              :affliction => @consultation.affliction,
+              :created_at => @consultation.created_at.to_formatted_s(:iso8601),
+              :diagnostic => @consultation.diagnostic,
+              :evolution => @consultation.evolution,
+              :height => @consultation.height,
+              :id => @consultation.id,
+              :medical_record_id => @consultation.medical_record_id,
+              :note => @consultation.note,
+              :plan => @consultation.plan,
+              :pressure_s => @consultation.pressure_s,
+              :pressure_d => @consultation.pressure_d,
+              :reason => @consultation.reason,
+              :updated_at => @consultation.updated_at.to_formatted_s(:iso8601),
+              :weight => @consultation.weight
+    }
+    json_response(json)
   end
 
   # PUT /consultations/:id
