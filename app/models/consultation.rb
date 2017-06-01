@@ -22,4 +22,10 @@ class Consultation < ApplicationRecord
     end
   end
 
+  def parsedPE
+    self.physical_exams.each do |b|
+      b.exam_type = b.type_es
+    end
+  end
+
 end
