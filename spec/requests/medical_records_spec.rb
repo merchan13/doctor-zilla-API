@@ -57,7 +57,7 @@ RSpec.describe 'Medical Records API', type: :request do
 
   # Test suite for PUT /users/:id
   describe 'PUT /medical_records/:id' do
-    let(:valid_attributes) { { medical_record: { name: 'Dick' } } }
+    let(:valid_attributes) { { medical_record: { name: 'Dick', birthday: '1999/12/12' } } }
 
     context 'when the record exists' do
       before { put "/medical_records/#{medical_record_id}", params: valid_attributes }

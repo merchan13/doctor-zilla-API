@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :occupations,       only:     [:index, :show]
   resources :operative_notes,   only:     [:show, :update]
   resources :physical_exams,    except:   [:new, :create, :destroy]
-  resources :plans,             only:     [:update, :show]
+  resources :plans,             only:     [:show, :update]
   resources :prescriptions,     only:     [:index, :show]
   resources :procedures,        only:     [:index, :show]
   resources :reasons,           only:     [:index, :show]
