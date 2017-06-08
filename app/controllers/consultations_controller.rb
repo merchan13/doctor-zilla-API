@@ -9,7 +9,7 @@ class ConsultationsController < ApplicationController
 
     @consultations.each do |c|
       parsedConsultation = {  :affliction => c.affliction,
-                              :created_at => c.created_at.to_formatted_s(:iso8601),
+                              :created_at => c.created_at.in_time_zone("Caracas").to_formatted_s(:iso8601),
                               :diagnostic => c.diagnostic,
                               :evolution => c.evolution,
                               :height => c.height,
@@ -20,7 +20,7 @@ class ConsultationsController < ApplicationController
                               :pressure_s => c.pressure_s,
                               :pressure_d => c.pressure_d,
                               :reason => c.reason,
-                              :updated_at => c.updated_at.to_formatted_s(:iso8601),
+                              :updated_at => c.updated_at.in_time_zone("Caracas").to_formatted_s(:iso8601),
                               :weight => c.weight,
                               :backgrounds => c.parsedBackgrounds,
                               :physical_exams => c.parsedPE
@@ -35,7 +35,7 @@ class ConsultationsController < ApplicationController
   def show
     json = {
               :affliction => @consultation.affliction,
-              :created_at => @consultation.created_at.to_formatted_s(:iso8601),
+              :created_at => @consultation.created_at.in_time_zone("Caracas").to_formatted_s(:iso8601),
               :diagnostic => @consultation.diagnostic,
               :evolution => @consultation.evolution,
               :height => @consultation.height,
@@ -46,7 +46,7 @@ class ConsultationsController < ApplicationController
               :pressure_s => @consultation.pressure_s,
               :pressure_d => @consultation.pressure_d,
               :reason => @consultation.reason,
-              :updated_at => @consultation.updated_at.to_formatted_s(:iso8601),
+              :updated_at => @consultation.updated_at.in_time_zone("Caracas").to_formatted_s(:iso8601),
               :weight => @consultation.weight,
               :backgrounds => @consultation.parsedBackgrounds,
               :physical_exams => @consultation.parsedPE

@@ -11,11 +11,11 @@ class MedicalRecordsController < ApplicationController
                         :backgrounds => r.backgrounds,
                         :birthday => r.birthday,
                         :cellphone_number => r.cellphone_number,
-                        :created_at => r.created_at.to_formatted_s(:iso8601),
+                        :created_at => r.created_at.in_time_zone("Caracas").to_formatted_s(:iso8601),
                         :document => r.document,
                         :document_type => r.document_type,
                         :email => r.email,
-                        :first_consultation_date => r.first_consultation_date.to_formatted_s(:iso8601),
+                        :first_consultation_date => r.first_consultation_date.in_time_zone("Caracas").to_formatted_s(:iso8601),
                         :gender => r.gender,
                         :id => r.id,
                         :insurance => r.insurance,
@@ -27,7 +27,7 @@ class MedicalRecordsController < ApplicationController
                         :profile_picture => r.profile_picture.url,
                         :referred_by => r.referred_by,
                         :representative_document => r.representative_document,
-                        :updated_at => r.updated_at.to_formatted_s(:iso8601)
+                        :updated_at => r.updated_at.in_time_zone("Caracas").to_formatted_s(:iso8601)
                       }
       json << parsedRecord
     end
@@ -41,11 +41,11 @@ class MedicalRecordsController < ApplicationController
               :backgrounds => @record.backgrounds,
               :birthday => @record.birthday,
               :cellphone_number => @record.cellphone_number,
-              :created_at => @record.created_at.to_formatted_s(:iso8601),
+              :created_at => @record.created_at.in_time_zone("Caracas").to_formatted_s(:iso8601),
               :document => @record.document,
               :document_type => @record.document_type,
               :email => @record.email,
-              :first_consultation_date => @record.first_consultation_date.to_formatted_s(:iso8601),
+              :first_consultation_date => @record.first_consultation_date.in_time_zone("Caracas").to_formatted_s(:iso8601),
               :gender => @record.gender,
               :id => @record.id,
               :insurance => @record.insurance,
@@ -57,7 +57,7 @@ class MedicalRecordsController < ApplicationController
               :profile_picture => @record.profile_picture.url,
               :referred_by => @record.referred_by,
               :representative_document => @record.representative_document,
-              :updated_at => @record.updated_at.to_formatted_s(:iso8601)
+              :updated_at => @record.updated_at.in_time_zone("Caracas").to_formatted_s(:iso8601)
             }
     json_response(json)
   end
