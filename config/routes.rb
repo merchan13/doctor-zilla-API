@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :reasons,           only:     [:index, :show]
   resources :users
 
+  resources :synchs,            only:     [:index, :create]
+
   get 'plans/:plan_id/procedures', to: 'procedures#index_plan', as: 'plan_procedures'
   get 'procedures/:procedure_id/plans', to: 'plans#index_procedure', as: 'procedures_plan'
 
