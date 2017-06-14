@@ -2,14 +2,28 @@ require 'rails_helper'
 
 RSpec.describe 'Operative Note API', type: :request do
   # initialize test data
-  let!(:operative_note) { create(:operative_note) }
-  let!(:operative_note_id) { operative_note.id }
-
+  let!(:operative_notes) { create_list(:operative_note, 5) }
+  let(:operative_note_id) { operative_notes.first.id }
+  
   before :each do
     stub_access_token
   end
 
-  # Test suite for GET /users/:id
+  # Test suite for GET /operative_notes
+  describe 'GET /operative_notes' do
+    before { get '/operative_notes' }
+
+    it 'returns operative_notes' do
+      expect(json).not_to be_empty
+      expect(json.size).to eq(5)
+    end
+
+    it 'returns status code 200' do
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  # Test suite for GET /operative_notes/:id
   describe 'GET /operative_notes/:id' do
     before { get "/operative_notes/#{operative_note_id}" }
 
@@ -37,7 +51,7 @@ RSpec.describe 'Operative Note API', type: :request do
     end
   end
 
-  # Test suite for PUT /users/:id
+  # Test suite for PUT /operative_notes/:id
   describe 'PUT /operative_notes/:id' do
     let(:valid_attributes) { { operative_note: { description: 'Updated description' } } }
 
