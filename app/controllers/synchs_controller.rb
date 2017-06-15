@@ -22,7 +22,7 @@ class SynchsController < ApplicationController
     json_response(@synch, :created)
   end
 
-# GET /latest_updates
+  # GET /latest_updates
   def latest_updates
     json = {
       :backgrounds => Sync.backgrounds,
@@ -35,6 +35,7 @@ class SynchsController < ApplicationController
     json_response(json)
   end
 
+  # GET /last_synch
   def last_synch
     synch = Synch.last
     json = {
@@ -42,6 +43,7 @@ class SynchsController < ApplicationController
       :description => synch.description,
       :created_at => synch.created_at.to_formatted_s(:iso8601)
     }
+    json_response(json)
   end
 
   private
