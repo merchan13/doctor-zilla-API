@@ -1,4 +1,6 @@
 class SynchsController < ApplicationController
+  #QUITAR ANTES DE PRODUCCION!
+  skip_before_action :require_login!
 
   # GET /synchs
   def index
@@ -25,12 +27,12 @@ class SynchsController < ApplicationController
   # GET /latest_updates
   def latest_updates
     json = {
-      :backgrounds => Sync.backgrounds,
-      :consultations => Sync.consultations,
-      :medical_records => Sync.medical_records,
-      :operative_notes => Sync.operative_notes,
-      :physical_exams => Sync.physical_exams,
-      :plans => Sync.plans
+      :backgrounds => Synch.backgrounds,
+      :consultations => Synch.consultations,
+      :medical_records => Synch.medical_records,
+      :operative_notes => Synch.operative_notes,
+      :physical_exams => Synch.physical_exams,
+      :plans => Synch.plans
     }
     json_response(json)
   end
