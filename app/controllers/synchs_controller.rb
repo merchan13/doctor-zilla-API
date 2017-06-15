@@ -8,8 +8,7 @@ class SynchsController < ApplicationController
     @synchs.each do |s|
       parsedSync = {  :id => s.id,
                       :description => s.description,
-                      :created_at => s.created_at.to_formatted_s(:iso8601),
-                      :updated_at => s.updated_at.to_formatted_s(:iso8601)
+                      :created_at => s.created_at.to_formatted_s(:iso8601)
                     }
       json << parsedSync
     end
@@ -17,9 +16,32 @@ class SynchsController < ApplicationController
     json_response(json)
   end
 
+  # POST /synchs
   def create
     @synch = Sync.create!(synch_params)
     json_response(@synch, :created)
+  end
+
+# GET /latest_updates
+  def latest_updates
+    json = {
+      :backgrounds => Sync.backgrounds,
+      :consultations => Sync.consultations,
+      :medical_records => Sync.medical_records,
+      :operative_notes => Sync.operative_notes,
+      :physical_exams => Sync.physical_exams,
+      :plans => Sync.plans
+    }
+    json_response(json)
+  end
+
+  def last_synch
+    synch = Synch.last
+    json = {
+      :id => synch.id,
+      :description => synch.description,
+      :created_at => synch.created_at.to_formatted_s(:iso8601)
+    }
   end
 
   private
