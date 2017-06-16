@@ -28,12 +28,12 @@ class SyncsController < ApplicationController
   # GET /latest_updates
   def latest_updates
     json = {
-      :backgrounds => sync.backgrounds,
-      :consultations => sync.consultations,
-      :medical_records => sync.medical_records,
-      :operative_notes => sync.operative_notes,
-      :physical_exams => sync.physical_exams,
-      :plans => sync.plans
+      :backgrounds => Sync.backgrounds,
+      :consultations => Sync.consultations,
+      :medical_records => Sync.medical_records,
+      :operative_notes => Sync.operative_notes,
+      :physical_exams => Sync.physical_exams,
+      :plans => Sync.plans
     }
     json_response(json)
   end
