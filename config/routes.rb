@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :procedures,        only:     [:index, :show]
   resources :reasons,           only:     [:index, :show]
   resources :users
-  resources :synchs,            only:     [:index, :create]
+  resources :syncs,            only:     [:index, :create]
 
   get 'plans/:plan_id/procedures', to: 'procedures#index_plan', as: 'plan_procedures'
   get 'procedures/:procedure_id/plans', to: 'plans#index_procedure', as: 'procedures_plan'
@@ -24,8 +24,8 @@ Rails.application.routes.draw do
   get 'medicines/:medicine_id/prescriptions', to: 'prescriptions#index_medicine', as: 'medicines_prescription'
 
   get 'search_records', to: 'medical_records#search'
-  get 'latest_updates', to: 'synchs#latest_updates'
-  get 'last_synch',     to: 'synchs#last_synch' 
+  get 'latest_updates', to: 'syncs#latest_updates'
+  get 'last_sync',     to: 'syncs#last_sync'
 
   post 'sign-in', to: 'sessions#create'
   delete 'sign-out', to: 'sessions#destroy'

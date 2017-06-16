@@ -1,15 +1,15 @@
-class Synch < ApplicationRecord
+class sync < ApplicationRecord
   #validates_presence_of :description
 
   def self.backgrounds
-    last_synch = self.last.created_at
-    backgrounds = Background.where("updated_at > ?", last_synch)
+    last_sync = self.last.created_at
+    backgrounds = Background.where("updated_at > ?", last_sync)
   end
 
   def self.consultations
-    last_synch = self.last.created_at
+    last_sync = self.last.created_at
 
-    consultations = Consultation.where("updated_at > ?", last_synch)
+    consultations = Consultation.where("updated_at > ?", last_sync)
 
     json = Array.new
 
@@ -38,9 +38,9 @@ class Synch < ApplicationRecord
   end
 
   def self.medical_records
-    last_synch = self.last.created_at
+    last_sync = self.last.created_at
 
-    records = MedicalRecord.where("updated_at > ?", last_synch)
+    records = MedicalRecord.where("updated_at > ?", last_sync)
 
     json = Array.new
 
@@ -74,18 +74,18 @@ class Synch < ApplicationRecord
   end
 
   def self.operative_notes
-    last_synch = self.last.created_at
-    operative_notes = OperativeNote.where("updated_at > ?", last_synch)
+    last_sync = self.last.created_at
+    operative_notes = OperativeNote.where("updated_at > ?", last_sync)
   end
 
   def self.physical_exams
-    last_synch = self.last.created_at
-    physical_exams = PhysicalExam.where("updated_at > ?", last_synch)
+    last_sync = self.last.created_at
+    physical_exams = PhysicalExam.where("updated_at > ?", last_sync)
   end
 
   def self.plans
-    last_synch = self.last.created_at
-    plans = Plan.where("updated_at > ?", last_synch)
+    last_sync = self.last.created_at
+    plans = Plan.where("updated_at > ?", last_sync)
   end
 
 end
