@@ -2,12 +2,12 @@ class sync < ApplicationRecord
   #validates_presence_of :description
 
   def self.backgrounds
-    last_sync = self.last.created_at
+    last_sync = self.last.sync_date
     backgrounds = Background.where("updated_at > ?", last_sync)
   end
 
   def self.consultations
-    last_sync = self.last.created_at
+    last_sync = self.last.sync_date
 
     consultations = Consultation.where("updated_at > ?", last_sync)
 
@@ -38,7 +38,7 @@ class sync < ApplicationRecord
   end
 
   def self.medical_records
-    last_sync = self.last.created_at
+    last_sync = self.last.sync_date
 
     records = MedicalRecord.where("updated_at > ?", last_sync)
 
@@ -74,17 +74,17 @@ class sync < ApplicationRecord
   end
 
   def self.operative_notes
-    last_sync = self.last.created_at
+    last_sync = self.last.sync_date
     operative_notes = OperativeNote.where("updated_at > ?", last_sync)
   end
 
   def self.physical_exams
-    last_sync = self.last.created_at
+    last_sync = self.last.sync_date
     physical_exams = PhysicalExam.where("updated_at > ?", last_sync)
   end
 
   def self.plans
-    last_sync = self.last.created_at
+    last_sync = self.last.sync_date
     plans = Plan.where("updated_at > ?", last_sync)
   end
 

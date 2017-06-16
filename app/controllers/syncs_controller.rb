@@ -9,6 +9,7 @@ class SyncsController < ApplicationController
 
     @syncs.each do |s|
       parsedSync = {  :id => s.id,
+                      :date => s.sync_date.to_formatted_s(:iso8601),
                       :description => s.description,
                       :created_at => s.created_at.to_formatted_s(:iso8601)
                     }
@@ -42,6 +43,7 @@ class SyncsController < ApplicationController
     sync = sync.last
     json = {
       :id => sync.id,
+      :sync_date => sync.sync_date.to_formatted_s(:iso8601),
       :description => sync.description,
       :created_at => sync.created_at.to_formatted_s(:iso8601)
     }
@@ -50,7 +52,7 @@ class SyncsController < ApplicationController
 
   private
     def sync_params
-      params.require(:sync).permit( :description )
+      params.require(:sync).permit( :sync_date, :description )
     end
 
 end
