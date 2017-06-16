@@ -1,4 +1,4 @@
-class sync < ApplicationRecord
+class Sync < ApplicationRecord
   #validates_presence_of :description
 
   def self.backgrounds
