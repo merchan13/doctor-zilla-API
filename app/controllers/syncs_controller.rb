@@ -4,7 +4,7 @@ class SyncsController < ApplicationController
 
   # GET /syncs
   def index
-    @syncs = sync.all
+    @syncs = Sync.all
     json = Array.new
 
     @syncs.each do |s|
@@ -40,7 +40,7 @@ class SyncsController < ApplicationController
 
   # GET /last_sync
   def last_sync
-    sync = sync.last
+    sync = Sync.last
     json = {
       :id => sync.id,
       :sync_date => sync.sync_date.to_formatted_s(:iso8601),
