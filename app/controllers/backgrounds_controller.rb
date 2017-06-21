@@ -5,7 +5,21 @@ class BackgroundsController < ApplicationController
   # GET /backgrounds
   def index
     @backgrounds = @consultation.backgrounds
-    json_response(@backgrounds)
+    json = Array.new
+
+    @backgrounds.each do |b|
+      parsedBackground {
+        :background_type => b.background_type,
+        :consultation_id => b.consultation_id,
+        :created_at => b.created_at.to_formatted_s(:iso8601),
+        :description => b.description,
+        :id => b.id,
+        :updated_at => c.updated_at.to_formatted_s(:iso8601)
+      }
+      json << parsedBackground
+    end
+
+    json_response(json)
   end
 
   # GET /backgrounds/:id
