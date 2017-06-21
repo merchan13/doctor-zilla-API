@@ -5,7 +5,21 @@ class PhysicalExamsController < ApplicationController
   # GET /physical_exams
   def index
     @physical_exams = @consultation.physical_exams
-    json_response(@physical_exams)
+    json = Array.new
+    @physical_exams.each do |pe|
+      parsedPE = {
+        :consultation_id => pe.consultation_id,
+        :created_at => pe.created_at.to_formatted_s(:iso8601),
+        :exam_type => pe.exam_type,
+        :id => pe.id,
+        :observation => pe.observation,
+        :updated_at => pe.updated_at.to_formatted_s(:iso8601),
+        :url => pe.url
+      }
+      json << parsedPE
+    end
+
+    json_response(json)
   end
 
   # GET /physical_exams/:id
