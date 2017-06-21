@@ -9,7 +9,7 @@ class BackgroundsController < ApplicationController
 
     @backgrounds.each do |b|
       parsedBackground = {
-        :background_type => b.background_type,
+        :background_type => b.type_es,
         :consultation_id => b.consultation_id,
         :created_at => b.created_at.to_formatted_s(:iso8601),
         :description => b.description,

@@ -10,7 +10,7 @@ class PhysicalExamsController < ApplicationController
       parsedPE = {
         :consultation_id => pe.consultation_id,
         :created_at => pe.created_at.to_formatted_s(:iso8601),
-        :exam_type => pe.exam_type,
+        :exam_type => pe.type_es,
         :id => pe.id,
         :observation => pe.observation,
         :updated_at => pe.updated_at.to_formatted_s(:iso8601),
