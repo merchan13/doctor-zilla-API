@@ -3,7 +3,16 @@ class PlansController < ApplicationController
 
   # GET /plans/:id
   def show
-    json_response(@plan)
+    json = {
+      :id => @plan.id,
+      :description => @plan.description,
+      :emergency => @plan.emergency,
+      :created_at => @plan.created_at.to_formatted_s(:iso8601),
+      :updated_at => @plan.updated_at.to_formatted_s(:iso8601),
+      :operative_note => @plan.operative_note
+    }
+
+    json_response(json)
   end
 
   # PUT /plans/:id
@@ -21,7 +30,7 @@ class PlansController < ApplicationController
 
   private
     def plan_params
-      params.require(:plan).permit( :plan_type, :description, :consultation_id )
+      params.require(:plan).permit( :emergency, :description, :consultation_id )
     end
 
     def set_plan
