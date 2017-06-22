@@ -5,6 +5,7 @@ class PlansController < ApplicationController
   def show
     json = {
       :id => @plan.id,
+      :consultation_id => @plan.consultation_id,
       :description => @plan.description,
       :emergency => @plan.emergency,
       :created_at => @plan.created_at.to_formatted_s(:iso8601),
