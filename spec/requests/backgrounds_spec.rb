@@ -5,8 +5,8 @@ RSpec.describe 'Backgrounds API', type: :request do
   let!(:background) { create(:background) }
   let!(:background_id) { background.id }
 
-  let!(:background_2) { create(:background, consultation: background.consultation) }
-  let!(:background_3) { create(:background, consultation: background.consultation) }
+  let!(:background_2) { create(:background, medical_record: background.medical_record) }
+  let!(:background_3) { create(:background, medical_record: background.medical_record) }
 
   before :each do
     stub_access_token
@@ -15,7 +15,7 @@ RSpec.describe 'Backgrounds API', type: :request do
   # Test suite for GET /backgrounds
   describe 'GET /backgrounds' do
     # make HTTP get request before each example
-    before { get '/backgrounds', params: { consultation: background.consultation.id } }
+    before { get '/backgrounds', params: { record: background.medical_record.id } }
 
     it 'returns backgrounds' do
       expect(json).not_to be_empty
@@ -27,7 +27,7 @@ RSpec.describe 'Backgrounds API', type: :request do
     end
   end
 
-  # Test suite for GET /users/:id
+  # Test suite for GET /backgrounds/:id
   describe 'GET /backgrounds/:id' do
     before { get "/backgrounds/#{background_id}" }
 
@@ -55,7 +55,7 @@ RSpec.describe 'Backgrounds API', type: :request do
     end
   end
 
-  # Test suite for PUT /users/:id
+  # Test suite for PUT /backgrounds/:id
   describe 'PUT /backgrounds/:id' do
     let(:valid_attributes) { { background: { description: 'Updated description' } } }
 

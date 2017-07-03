@@ -1,16 +1,16 @@
 class BackgroundsController < ApplicationController
-  before_action :set_consultation, only: [:index]
+  before_action :set_medical_record, only: [:index]
   before_action :set_background, only: [:show, :update]
 
   # GET /backgrounds
   def index
-    @backgrounds = @consultation.backgrounds
+    @backgrounds = @medical_record.backgrounds
     json = Array.new
 
     @backgrounds.each do |b|
       parsedBackground = {
         :background_type => b.type_es,
-        :consultation_id => b.consultation_id,
+        :medical_record_id => b.medical_record_id,
         :created_at => b.created_at.to_formatted_s(:iso8601),
         :description => b.description,
         :id => b.id,
@@ -35,15 +35,15 @@ class BackgroundsController < ApplicationController
 
   private
     def background_params
-      params.require(:background).permit( :background_type, :description, :consultation_id )
+      params.require(:background).permit( :background_type, :description, :medical_record_id )
     end
 
     def set_background
       @background = Background.find(params[:id])
     end
 
-    def set_consultation
-      @consultation = Consultation.find(params[:consultation])
+    def set_medical_record
+      @medical_record = MedicalRecord.find(params[:record])
     end
 
 end

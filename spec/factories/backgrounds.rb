@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :background do
-    consultation
+    medical_record
     background_type 'family'
     description 'Descripcion X'
   end

@@ -23,7 +23,6 @@ class ConsultationsController < ApplicationController
         :reason => c.reason,
         :updated_at => c.updated_at.to_formatted_s(:iso8601),
         :weight => c.weight,
-        :backgrounds => c.parsedBackgrounds,
         :physical_exams => c.parsedPE
       }
       json << parsedConsultation
@@ -49,7 +48,6 @@ class ConsultationsController < ApplicationController
       :reason => @consultation.reason,
       :updated_at => @consultation.updated_at.to_formatted_s(:iso8601),
       :weight => @consultation.weight,
-      :backgrounds => @consultation.parsedBackgrounds,
       :physical_exams => @consultation.parsedPE
     }
     json_response(json)

@@ -9,7 +9,7 @@ class MedicalRecordsController < ApplicationController
     @records.each do |r|
       parsedRecord = {
         :address => r.address,
-        :backgrounds => r.backgrounds,
+        :backgrounds => r.parsedBackgrounds,
         :birthday => r.birthday,
         :cellphone_number => r.cellphone_number,
         :created_at => r.created_at.to_formatted_s(:iso8601),
@@ -40,7 +40,7 @@ class MedicalRecordsController < ApplicationController
   def show
     json = {
       :address => @record.address,
-      :backgrounds => @record.backgrounds,
+      :backgrounds => @record.parsedBackgrounds,
       :birthday => @record.birthday,
       :cellphone_number => @record.cellphone_number,
       :created_at => @record.created_at.to_formatted_s(:iso8601),

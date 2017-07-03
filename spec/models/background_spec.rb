@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Background, type: :model do
   # Association test
-  it { should belong_to(:consultation) }
+  it { should belong_to(:medical_record) }
 
   # Validation tests
   let(:background) { FactoryGirl.create(:background, background_type: 'family') }

@@ -7,6 +7,7 @@ RSpec.describe MedicalRecord, type: :model do
   # ensure MedicalRecord model has a 1:m relationship a model
   it { should have_many(:user_medical_records) }
   it { should have_many(:consultations) }
+  it { should have_many(:backgrounds) }
   it { should have_many(:prescriptions) }
   it { should have_many(:attachments) }
 
@@ -86,15 +87,6 @@ RSpec.describe MedicalRecord, type: :model do
     FactoryGirl.create(:medical_record, document:'13', name:'Jose', last_name:'Perez')
     FactoryGirl.create(:medical_record, document:'33', name:'Jane', last_name:'Rodriguez')
     FactoryGirl.create(:consultation, medical_record: MedicalRecord.last, weight: 80, height: 180, pressure_d:'110', pressure_s:'80')
-    FactoryGirl.create(:background, consultation: Consultation.last)
-    FactoryGirl.create(:background, consultation: Consultation.last)
-    FactoryGirl.create(:background, consultation: Consultation.last)
-  end
-
-  describe 'backgrounds' do
-    it "returns a hash with all the backgrounds" do
-      expect(MedicalRecord.last.backgrounds['Familiares'].size).to eq(3)
-    end
   end
 
   describe 'physic_data' do

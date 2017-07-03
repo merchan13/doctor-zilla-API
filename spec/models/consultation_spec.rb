@@ -5,7 +5,6 @@ RSpec.describe Consultation, type: :model do
   # ensure Consultation model has a n:m relationship with a model
   # ...
   # ensure Consultation model has a 1:m relationship a model
-  it { should have_many(:backgrounds) }
   it { should have_many(:physical_exams) }
 
   it { should belong_to(:medical_record) }

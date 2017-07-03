@@ -1,8 +1,6 @@
 class Consultation < ApplicationRecord
   belongs_to :medical_record
 
-  # Antecedentes
-  has_many :backgrounds
   # Examen fisico
   has_many :physical_exams
   # Motivos de consulta
@@ -14,12 +12,6 @@ class Consultation < ApplicationRecord
 
   def imc
     result = self.weight/((self.height/100) ** 2)
-  end
-
-  def parsedBackgrounds
-    self.backgrounds.each do |b|
-      b.background_type = b.type_es
-    end
   end
 
   def parsedPE
