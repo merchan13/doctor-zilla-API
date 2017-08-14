@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :medical_record do
-    document { '23686197' }
+    document { "#{Faker::Number.number(10)}" }
     document_type 'V'
     first_consultation_date '2017/01/01'
     name { 'Javier Alonso' }

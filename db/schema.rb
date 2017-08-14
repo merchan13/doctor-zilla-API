@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703164840) do
+ActiveRecord::Schema.define(version: 20170808015630) do
 
   create_table "assistantships", force: :cascade do |t|
     t.integer  "user_id"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 20170703164840) do
     t.datetime "updated_at",   null: false
     t.index ["assistant_id"], name: "index_assistantships_on_assistant_id"
     t.index ["user_id"], name: "index_assistantships_on_user_id"
+  end
+
+  create_table "attachment_reports", force: :cascade do |t|
+    t.integer  "report_id"
+    t.integer  "attachment_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["attachment_id"], name: "index_attachment_reports_on_attachment_id"
+    t.index ["report_id"], name: "index_attachment_reports_on_report_id"
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -37,6 +46,34 @@ ActiveRecord::Schema.define(version: 20170703164840) do
     t.datetime "updated_at",        null: false
     t.integer  "medical_record_id"
     t.index ["medical_record_id"], name: "index_backgrounds_on_medical_record_id"
+  end
+
+  create_table "budget_equipments", force: :cascade do |t|
+    t.integer  "budget_id"
+    t.integer  "equipment_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.float    "cost",         null: false
+    t.index ["budget_id"], name: "index_budget_equipments_on_budget_id"
+    t.index ["equipment_id"], name: "index_budget_equipments_on_equipment_id"
+  end
+
+  create_table "budget_procedures", force: :cascade do |t|
+    t.integer  "budget_id"
+    t.integer  "procedure_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.float    "cost",         null: false
+    t.index ["budget_id"], name: "index_budget_procedures_on_budget_id"
+    t.index ["procedure_id"], name: "index_budget_procedures_on_procedure_id"
+  end
+
+  create_table "budgets", force: :cascade do |t|
+    t.float    "cost",              null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "medical_record_id"
+    t.index ["medical_record_id"], name: "index_budgets_on_medical_record_id"
   end
 
   create_table "consultations", force: :cascade do |t|
@@ -65,6 +102,12 @@ ActiveRecord::Schema.define(version: 20170703164840) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "equipment", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "insurances", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
@@ -90,15 +133,20 @@ ActiveRecord::Schema.define(version: 20170703164840) do
     t.integer  "occupation_id"
     t.integer  "insurance_id"
     t.date     "birthday"
+    t.index ["document_type", "document"], name: "index_medical_records_on_document_type_and_document", unique: true
     t.index ["insurance_id"], name: "index_medical_records_on_insurance_id"
     t.index ["occupation_id"], name: "index_medical_records_on_occupation_id"
   end
 
   create_table "medicines", force: :cascade do |t|
     t.string   "comercial_name"
-    t.string   "generic_name",   null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "generic_name",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "dose_way",          null: false
+    t.string   "dose_presentation", null: false
+    t.float    "dose_quantity",     null: false
+    t.string   "dose_unit",         null: false
   end
 
   create_table "occupations", force: :cascade do |t|
@@ -113,6 +161,7 @@ ActiveRecord::Schema.define(version: 20170703164840) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "plan_id"
+    t.text     "diagnostic"
     t.index ["plan_id"], name: "index_operative_notes_on_plan_id"
   end
 
@@ -151,10 +200,6 @@ ActiveRecord::Schema.define(version: 20170703164840) do
     t.integer  "medicine_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.string   "dose_way",          null: false
-    t.string   "dose_presentation", null: false
-    t.float    "dose_quantity",     null: false
-    t.string   "dose_unit",         null: false
     t.float    "interval_quantity", null: false
     t.string   "interval_unit",     null: false
     t.float    "duration_quantity", null: false
@@ -183,6 +228,15 @@ ActiveRecord::Schema.define(version: 20170703164840) do
     t.text     "description", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string   "report_type",       null: false
+    t.text     "description",       null: false
+    t.integer  "medical_record_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["medical_record_id"], name: "index_reports_on_medical_record_id"
   end
 
   create_table "syncs", force: :cascade do |t|

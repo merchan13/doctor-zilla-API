@@ -16,6 +16,7 @@ RSpec.describe MedicalRecord, type: :model do
 
   # Validation tests
   let(:record) { FactoryGirl.create(:medical_record) }
+  let(:recordId) { "#{record.document_type}-#{record.document}" }
 
   subject { record }
 
@@ -70,7 +71,7 @@ RSpec.describe MedicalRecord, type: :model do
 
   describe 'full_id' do
     it "returns record pacient's full id" do
-      expect(record.full_id).to eq('V-23686197')
+      expect(record.full_id).to eq(recordId)
     end
   end
 
