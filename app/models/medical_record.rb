@@ -7,15 +7,27 @@ class MedicalRecord < ApplicationRecord
 
   has_many :user_medical_records
   has_many :users, through: :user_medical_records
-  has_many :consultations
   has_many :backgrounds
+  has_many :consultations
   has_many :attachments
+  has_many :reports
 
   belongs_to :insurance, optional: true
   belongs_to :occupation, optional: true
 
-  validates_presence_of :document, :document_type, :first_consultation_date, :name, :last_name, :birthday, :gender,
-                        :phone_number, :address
+  validates_presence_of :document,
+                        :document_type,
+                        :first_consultation_date,
+                        :name,
+                        :last_name,
+                        :birthday,
+                        :gender,
+                        :phone_number,
+                        :address,
+                        :occupation,
+                        :insurance
+
+  validates :document, uniqueness: { scope: :document_type }                      
 
   def full_name
     return "#{name} #{last_name}".strip if (name || last_name)

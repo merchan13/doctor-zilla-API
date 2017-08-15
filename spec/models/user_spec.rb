@@ -2,12 +2,8 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   # Association test
-  # ensure User model has a n:m relationship with other model
   it { should have_many(:medical_records).through(:user_medical_records) }
-  it { should have_many(:assistants).through(:assistantships) }
-  # ensure User model has a 1:m relationship with other model
   it { should have_many(:user_medical_records) }
-  it { should have_many(:assistantships) }
 
   # Validation tests
   let(:user) { FactoryGirl.create(:user, name: 'Javier Alonso', lastname: 'Merchan Salazar') }

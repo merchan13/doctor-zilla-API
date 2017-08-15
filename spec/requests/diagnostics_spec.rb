@@ -5,6 +5,8 @@ RSpec.describe 'Diagnostics API', type: :request do
   let!(:diagnostics) { create_list(:diagnostic, 5) }
   let(:diagnostic_id) { diagnostics.first.id }
 
+  subject { diagnostics }
+
   before :each do
     stub_access_token
   end

@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :diagnostic do
-    description 'Diagnostico X'
+    description { Faker::ChuckNorris.unique.fact }
   end
 end

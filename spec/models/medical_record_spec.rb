@@ -8,15 +8,16 @@ RSpec.describe MedicalRecord, type: :model do
   it { should have_many(:user_medical_records) }
   it { should have_many(:consultations) }
   it { should have_many(:backgrounds) }
-  it { should have_many(:prescriptions) }
   it { should have_many(:attachments) }
 
   it { should belong_to(:insurance) }
   it { should belong_to(:occupation) }
 
   # Validation tests
-  let(:record) { FactoryGirl.create(:medical_record) }
-  let(:recordId) { "#{record.document_type}-#{record.document}" }
+  let(:record)      { FactoryGirl.create(:medical_record) }
+  let(:recordId)    { "#{record.document_type}-#{record.document}" }
+  let(:occupation)  { record.occupation }
+  let(:insurance)   { record.insurance }
 
   subject { record }
 
@@ -83,10 +84,10 @@ RSpec.describe MedicalRecord, type: :model do
 
   # Data set up for specific methods below
   before do
-    FactoryGirl.create(:medical_record, document:'11', name:'John', last_name:'Perez')
-    FactoryGirl.create(:medical_record, document:'12', name:'Mary', last_name:'Perez')
-    FactoryGirl.create(:medical_record, document:'13', name:'Jose', last_name:'Perez')
-    FactoryGirl.create(:medical_record, document:'33', name:'Jane', last_name:'Rodriguez')
+    FactoryGirl.create(:medical_record, document:'1111111111', name:'John', last_name:'Perez', insurance: insurance, occupation: occupation)
+    FactoryGirl.create(:medical_record, document:'2222222222', name:'Mary', last_name:'Perez', insurance: insurance, occupation: occupation)
+    FactoryGirl.create(:medical_record, document:'3333333333', name:'Jose', last_name:'Perez', insurance: insurance, occupation: occupation)
+    FactoryGirl.create(:medical_record, document:'4444444444', name:'Jane', last_name:'Rodriguez', insurance: insurance, occupation: occupation)
     FactoryGirl.create(:consultation, medical_record: MedicalRecord.last, weight: 80, height: 180, pressure_d:'110', pressure_s:'80')
   end
 
@@ -143,7 +144,7 @@ RSpec.describe MedicalRecord, type: :model do
 
     context "non-matching results" do
       it "returns zero results" do
-        expect(MedicalRecord.last_name_matches('Merchan').count).to eq(0)
+        expect(MedicalRecord.last_name_matches('Gonzalez').count).to eq(0)
       end
     end
   end
@@ -151,13 +152,13 @@ RSpec.describe MedicalRecord, type: :model do
   describe 'document_matches' do
     context "matching results" do
       it "returns search results" do
-        expect(MedicalRecord.document_matches('1').count).to eq(3)
+        expect(MedicalRecord.document_matches('1111111111').count).to eq(1)
       end
     end
 
     context "non-matching results" do
       it "returns zero results" do
-        expect(MedicalRecord.document_matches('9').count).to eq(0)
+        expect(MedicalRecord.document_matches('12345678987654321').count).to eq(0)
       end
     end
   end
@@ -171,7 +172,7 @@ RSpec.describe MedicalRecord, type: :model do
 
     context "non-matching results" do
       it "returns zero results" do
-        expect(MedicalRecord.matches('document','99').count).to eq(0)
+        expect(MedicalRecord.matches('document','12345678987654321').count).to eq(0)
       end
     end
   end

@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'Operative Note API', type: :request do
   # initialize test data
-  let!(:operative_notes) { create_list(:operative_note, 5) }
+  let!(:operative_notes) { create_list(:operative_note, 2) }
   let(:operative_note_id) { operative_notes.first.id }
-  
+
+  subject { operative_notes }
+
   before :each do
     stub_access_token
   end
@@ -15,7 +17,7 @@ RSpec.describe 'Operative Note API', type: :request do
 
     it 'returns operative_notes' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(5)
+      expect(json.size).to eq(2)
     end
 
     it 'returns status code 200' do

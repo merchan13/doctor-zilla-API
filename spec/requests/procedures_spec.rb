@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Procedures API', type: :request do
   # initialize test data
-  let!(:procedures) { create_list(:procedure, 5) }
+  let!(:procedures) { create_list(:procedure, 3) }
   let(:procedure_id) { procedures.first.id }
+
+  subject { procedures }
 
   before :each do
     stub_access_token
@@ -15,7 +17,7 @@ RSpec.describe 'Procedures API', type: :request do
 
     it 'returns procedures' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(5)
+      expect(json.size).to eq(3)
     end
 
     it 'returns status code 200' do
@@ -55,14 +57,15 @@ RSpec.describe 'Procedures API', type: :request do
   describe 'GET /plans/:plan_id/procedures' do
 
     before :each do
-      FactoryGirl.create(:plan).procedures << Procedure.all
+      FactoryGirl.create(:plan)
+      Plan.last.procedures << procedures
 
       get "/plans/#{Plan.last.id}/procedures"
     end
 
     it 'returns procedures used in a procedure' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(5)
+      expect(json.size).to eq(3)
     end
 
     it 'returns status code 200' do

@@ -5,6 +5,8 @@ RSpec.describe 'Insurances API', type: :request do
   let!(:insurances) { create_list(:insurance, 5) }
   let(:insurance_id) { insurances.first.id }
 
+  subject { insurances }
+
   before :each do
     stub_access_token
   end

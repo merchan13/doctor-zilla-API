@@ -5,7 +5,7 @@ RSpec.describe Occupation, type: :model do
   it { should have_many(:medical_records) }
 
   # Validation tests
-  let(:occupation) { FactoryGirl.build(:occupation) }
+  let(:occupation) { FactoryGirl.create(:occupation) }
 
   subject { occupation }
 
@@ -13,7 +13,7 @@ RSpec.describe Occupation, type: :model do
 
   it { should validate_presence_of(:name) }
 
-  it { should validate_uniqueness_of(:name) }
+  it { should validate_uniqueness_of(:name).case_insensitive }
 
   it { should allow_value('Nombre').for(:name) }
 

@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Reasons API', type: :request do
   # initialize test data
-  let!(:reasons) { create_list(:reason, 5) }
+  let!(:reasons) { create_list(:reason, 3) }
   let(:reason_id) { reasons.first.id }
+
+  subject { reasons }
 
   before :each do
     stub_access_token
@@ -15,7 +17,7 @@ RSpec.describe 'Reasons API', type: :request do
 
     it 'returns reasons' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(5)
+      expect(json.size).to eq(3)
     end
 
     it 'returns status code 200' do

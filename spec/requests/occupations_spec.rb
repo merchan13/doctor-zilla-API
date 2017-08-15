@@ -5,6 +5,8 @@ RSpec.describe 'Occupations API', type: :request do
   let!(:occupations) { create_list(:occupation, 5) }
   let(:occupation_id) { occupations.first.id }
 
+  subject { occupations }
+
   before :each do
     stub_access_token
   end

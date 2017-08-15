@@ -6,6 +6,8 @@ RSpec.describe 'Sessions API', type: :request do
   let!(:user) { create(:user, password: 'qwerty123') }
   let!(:user_assistant) { create(:user, password: 'qwerty123', role: 'Assistant') }
 
+  subject { user }
+
   before :each do
     stub_access_token
     stub_current_user(user)
