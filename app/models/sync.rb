@@ -1,5 +1,4 @@
 class Sync < ApplicationRecord
-  #validates_presence_of :description
 
   def self.backgrounds
     last_sync = self.last.sync_date

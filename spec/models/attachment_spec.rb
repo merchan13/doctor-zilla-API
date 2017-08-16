@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Attachment, type: :model do
   # Association test
   it { should belong_to(:medical_record) }
+  it { should have_many(:attachment_reports) }
+  it { should have_many(:reports).through(:attachment_reports) }
 
   # Validation tests
   let(:attachment) { FactoryGirl.create(:attachment) }

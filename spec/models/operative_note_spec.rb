@@ -11,11 +11,13 @@ RSpec.describe OperativeNote, type: :model do
 
   it { should respond_to(:description) }
   it { should respond_to(:find) }
+  it { should respond_to(:diagnostic) }
 
   it { should validate_presence_of(:description) }
 
   it { should allow_value('Descripcion de la nota operatoria').for(:description) }
   it { should allow_value('Hallazgo de la nota operatoria').for(:find) }
+  it { should allow_value('Diagnostico de la nota operatoria').for(:diagnostic) }
 
   it { should be_valid(operative_note) }
 

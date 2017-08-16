@@ -1,6 +1,5 @@
 class SyncsController < ApplicationController
-  #QUITAR ANTES DE PRODUCCION!
-  skip_before_action :require_login!
+  #skip_before_action :require_login!
 
   # GET /syncs
   def index

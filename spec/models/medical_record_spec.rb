@@ -2,13 +2,12 @@ require 'rails_helper'
 
 RSpec.describe MedicalRecord, type: :model do
   # Association test
-  # ensure MedicalRecord model has a n:m relationship with a model
-  it { should have_many(:users).through(:user_medical_records) }
-  # ensure MedicalRecord model has a 1:m relationship a model
   it { should have_many(:user_medical_records) }
-  it { should have_many(:consultations) }
+  it { should have_many(:users).through(:user_medical_records) }
   it { should have_many(:backgrounds) }
+  it { should have_many(:consultations) }
   it { should have_many(:attachments) }
+  it { should have_many(:reports) }
 
   it { should belong_to(:insurance) }
   it { should belong_to(:occupation) }
@@ -45,6 +44,10 @@ RSpec.describe MedicalRecord, type: :model do
   it { should validate_presence_of(:gender) }
   it { should validate_presence_of(:phone_number) }
   it { should validate_presence_of(:address) }
+  it { should validate_presence_of(:occupation) }
+  it { should validate_presence_of(:insurance) }
+
+  it { should validate_uniqueness_of(:document).scoped_to(:document_type) }
 
   it { should allow_value('23666555').for(:document) }
   it { should allow_value('V').for(:document_type) }

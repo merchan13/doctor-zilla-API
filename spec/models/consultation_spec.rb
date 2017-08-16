@@ -2,12 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Consultation, type: :model do
   # Association test
-  # ensure Consultation model has a n:m relationship with a model
-  # ...
-  # ensure Consultation model has a 1:m relationship a model
+  it { should belong_to(:medical_record) }
+
   it { should have_many(:physical_exams) }
 
-  it { should belong_to(:medical_record) }
   it { should belong_to(:reason) }
   it { should belong_to(:diagnostic) }
 

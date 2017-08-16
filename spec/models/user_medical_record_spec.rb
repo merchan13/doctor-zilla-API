@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UserMedicalRecord, type: :model do
   # Association test
-  # ensure UserMedicalRecord model has a n:1 relationship with the User model
   it { should belong_to(:user) }
-  # ensure UserMedicalRecord model has a n:1 relationship with the MedicalRecord model
   it { should belong_to(:medical_record) }
 
   # Validation tests
