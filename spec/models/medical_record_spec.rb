@@ -47,7 +47,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should validate_presence_of(:occupation) }
   it { should validate_presence_of(:insurance) }
 
-  it { should validate_uniqueness_of(:document).scoped_to(:document_type) }
+  it { should validate_uniqueness_of(:document).scoped_to(:document_type).case_insensitive }
 
   it { should allow_value('23666555').for(:document) }
   it { should allow_value('V').for(:document_type) }

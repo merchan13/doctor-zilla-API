@@ -72,19 +72,9 @@ class Sync < ApplicationRecord
     json
   end
 
-  def self.operative_notes
-    last_sync = self.last.sync_date
-    operative_notes = OperativeNote.where("updated_at > ?", last_sync)
-  end
-
   def self.physical_exams
     last_sync = self.last.sync_date
     physical_exams = PhysicalExam.where("updated_at > ?", last_sync)
-  end
-
-  def self.plans
-    last_sync = self.last.sync_date
-    plans = Plan.where("updated_at > ?", last_sync)
   end
 
 end

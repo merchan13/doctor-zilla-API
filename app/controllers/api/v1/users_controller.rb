@@ -1,6 +1,5 @@
 module Api::V1
   class UsersController < ApiController
-
     before_action :set_user, only: [:show, :update, :destroy]
 
     # GET /users
@@ -33,15 +32,14 @@ module Api::V1
     end
 
     private
+      def user_params
+        params.permit(:email, :password, :password_confirmation, :document, :name, :lastname, :phone, :role)
+      end
 
-    def user_params
-      # whitelist params
-      params.permit(:email, :password, :password_confirmation, :document, :name, :lastname, :phone, :role)
-    end
-
-    def set_user
-      @user = User.find(params[:id])
-    end
+      def set_user
+        @user = User.find(params[:id])
+      end
 
   end
+
 end

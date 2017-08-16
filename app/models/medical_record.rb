@@ -27,7 +27,7 @@ class MedicalRecord < ApplicationRecord
                         :occupation,
                         :insurance
 
-  validates :document, uniqueness: { scope: :document_type }                      
+  validates :document, uniqueness: { scope: :document_type, case_sensitive: false }                      
 
   def full_name
     return "#{name} #{last_name}".strip if (name || last_name)
