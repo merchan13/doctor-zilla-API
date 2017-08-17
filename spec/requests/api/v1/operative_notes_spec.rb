@@ -53,21 +53,4 @@ RSpec.describe "Operative Note API", type: :request do
     end
   end
 
-  # Test suite for PUT /v1/operative_notes/:id
-  describe "PUT /v1/operative_notes/:id" do
-    let(:valid_attributes) { { operative_note: { description: "Updated description" } } }
-
-    context "when the record exists" do
-      before { put "/v1/operative_notes/#{operative_note_id}", params: valid_attributes }
-
-      it "updates the operative_note" do
-        expect(response.body).to be_empty
-      end
-
-      it "returns status code 204" do
-        expect(response).to have_http_status(204)
-      end
-    end
-  end
-
 end

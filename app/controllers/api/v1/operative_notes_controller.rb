@@ -1,6 +1,6 @@
 module Api::V1
   class OperativeNotesController < ApiController
-    before_action :set_operative_note, only: [:show, :update]
+    before_action :set_operative_note, only: [:show]
 
     # GET /operative_notes
     def index
@@ -13,17 +13,7 @@ module Api::V1
       json_response(@operative_note)
     end
 
-    # PUT /operative_notes/:id
-    def update
-      @operative_note.update(operative_note_params)
-      head :no_content
-    end
-
     private
-      def operative_note_params
-        params.require(:operative_note).permit( :description, :find, :plan_id )
-      end
-
       def set_operative_note
         @operative_note = OperativeNote.find(params[:id])
       end

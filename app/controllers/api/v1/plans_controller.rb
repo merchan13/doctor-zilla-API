@@ -1,6 +1,6 @@
 module Api::V1
   class PlansController < ApiController
-    before_action :set_plan, only: [:show, :update]
+    before_action :set_plan, only: [:show]
 
     # GET /plans/:id
     def show
@@ -17,12 +17,6 @@ module Api::V1
       json_response(json)
     end
 
-    # PUT /plans/:id
-    def update
-      @plan.update(plan_params)
-      head :no_content
-    end
-
     # GET /procedures/:procedure_id/plans
     def index_procedure
       @procedure = Procedure.find(params[:procedure_id])
@@ -31,10 +25,6 @@ module Api::V1
     end
 
     private
-      def plan_params
-        params.require(:plan).permit( :emergency, :description, :consultation_id )
-      end
-
       def set_plan
         @plan = Plan.find(params[:id])
       end

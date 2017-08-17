@@ -37,23 +37,6 @@ RSpec.describe "Plans API", type: :request do
     end
   end
 
-  # Test suite for PUT /v1/users/:id
-  describe "PUT /v1/plans/:id" do
-    let(:valid_attributes) { { plan: { description: "Updated description" } } }
-
-    context "when the record exists" do
-      before { put "/v1/plans/#{plan_id}", params: valid_attributes }
-
-      it "updates the plan" do
-        expect(response.body).to be_empty
-      end
-
-      it "returns status code 204" do
-        expect(response).to have_http_status(204)
-      end
-    end
-  end
-
   # Test suite for GET /v1/procedures/:procedure_id/plans
   describe "GET /v1/procedures/:procedure_id/plans" do
 
