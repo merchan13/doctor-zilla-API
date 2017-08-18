@@ -15,7 +15,7 @@ RSpec.describe "Attachments API", type: :request do
   # Test suite for GET /v1/attachments
   describe "GET /v1/attachments" do
     # make HTTP get request before each example
-    before { get "/v1/attachments", params: { medical_record: attachment.medical_record.id } }
+    before { get "/v1/attachments", params: { record: attachment.medical_record.id } }
 
     it "returns attachments" do
       expect(json).not_to be_empty

@@ -15,7 +15,7 @@ RSpec.describe "Reports API", type: :request do
   # Test suite for GET /v1/reports
   describe "GET /v1/reports" do
     # make HTTP get request before each example
-    before { get "/v1/reports", params: { medical_record: report.medical_record.id } }
+    before { get "/v1/reports", params: { record: report.medical_record.id } }
 
     it "returns reports" do
       expect(json).not_to be_empty

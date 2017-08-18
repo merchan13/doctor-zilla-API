@@ -20,7 +20,7 @@ module Api::V1
       end
 
       def set_medical_record
-        @medical_record = MedicalRecord.find(params[:medical_record])
+        @medical_record = MedicalRecord.find(params[:record])
       end
   end
 end
