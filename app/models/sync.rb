@@ -1,10 +1,5 @@
 class Sync < ApplicationRecord
 
-  def self.backgrounds
-    last_sync = self.last.sync_date
-    backgrounds = Background.where("updated_at > ?", last_sync)
-  end
-
   def self.consultations
     last_sync = self.last.sync_date
 
@@ -28,7 +23,6 @@ class Sync < ApplicationRecord
         :reason => c.reason,
         :updated_at => c.updated_at.to_formatted_s(:iso8601),
         :weight => c.weight,
-        :backgrounds => c.parsedBackgrounds,
         :physical_exams => c.parsedPE
       }
       json << parsedConsultation
@@ -46,7 +40,7 @@ class Sync < ApplicationRecord
     records.each do |r|
       parsedRecord = {
         :address => r.address,
-        :backgrounds => r.backgrounds,
+        :backgrounds => r.parsedBackgrounds,
         :birthday => r.birthday,
         :cellphone_number => r.cellphone_number,
         :created_at => r.created_at.to_formatted_s(:iso8601),
@@ -70,11 +64,6 @@ class Sync < ApplicationRecord
       json << parsedRecord
     end
     json
-  end
-
-  def self.physical_exams
-    last_sync = self.last.sync_date
-    physical_exams = PhysicalExam.where("updated_at > ?", last_sync)
   end
 
 end

@@ -27,10 +27,8 @@ module Api::V1
     # GET /latest_updates
     def latest_updates
       json = {
-        :backgrounds => Sync.backgrounds,
         :consultations => Sync.consultations,
-        :medical_records => Sync.medical_records,
-        :physical_exams => Sync.physical_exams,
+        :medical_records => Sync.medical_records
       }
       json_response(json)
     end
