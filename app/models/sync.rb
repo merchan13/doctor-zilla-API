@@ -40,6 +40,7 @@ class Sync < ApplicationRecord
     records.each do |r|
       parsedRecord = {
         :address => r.address,
+        :attachments => r.attachments,
         :backgrounds => r.parsedBackgrounds,
         :birthday => r.birthday,
         :cellphone_number => r.cellphone_number,
@@ -58,6 +59,7 @@ class Sync < ApplicationRecord
         :physic_data => r.physic_data,
         :profile_picture => r.profile_picture.url,
         :referred_by => r.referred_by,
+        :reports => r.reports,
         :representative_document => r.representative_document,
         :updated_at => r.updated_at.to_formatted_s(:iso8601)
       }
