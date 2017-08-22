@@ -27,7 +27,7 @@ class MedicalRecord < ApplicationRecord
                         :occupation,
                         :insurance
 
-  validates :document, uniqueness: { scope: :document_type, case_sensitive: false }                      
+  validates :document, uniqueness: { scope: :document_type, case_sensitive: false }
 
   def full_name
     return "#{name} #{last_name}".strip if (name || last_name)
@@ -49,6 +49,7 @@ class MedicalRecord < ApplicationRecord
   def parsedBackgrounds
     self.backgrounds.each do |b|
       b.background_type = b.type_es
+      b.updated_at = b.updated_at.to_formatted_s(:iso8601),
     end
   end
 
