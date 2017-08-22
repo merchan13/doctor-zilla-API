@@ -38,10 +38,24 @@ class Sync < ApplicationRecord
     json = Array.new
 
     records.each do |r|
+
+      parsedBackgrounds = Array.new
+      r.backgrounds.each do |b|
+        parsedBg = {
+          :background_type => b.type_es,
+          :medical_record_id => b.medical_record_id,
+          :created_at => b.created_at.to_formatted_s(:iso8601),
+          :description => b.description,
+          :id => b.id,
+          :updated_at => b.updated_at.to_formatted_s(:iso8601)
+        }
+        parsedBackgrounds << parsedBg
+      end
+
       parsedRecord = {
         :address => r.address,
         :attachments => r.attachments,
-        :backgrounds_new => r.parsedBackgrounds,
+        :backgrounds_new => parsedBackgrounds,
         :birthday => r.birthday,
         :cellphone_number => r.cellphone_number,
         :created_at => r.created_at.to_formatted_s(:iso8601),
