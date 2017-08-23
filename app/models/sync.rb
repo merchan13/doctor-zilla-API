@@ -33,12 +33,20 @@ class Sync < ApplicationRecord
   def self.medical_records
     last_sync = self.last.sync_date
 
-    records = MedicalRecord.where("updated_at > ?", last_sync)
+    #records = MedicalRecord.where("updated_at > ?", last_sync)
+
+    records = MedicalRecord.joins(:attachments, :reports).distinct
+                           .where('medical_records.created_at > ? OR medical_records.updated_at > ?
+                                  OR attachments.created_at > ? OR attachments.updated_at > ?
+                                  OR reports.created_at > ? OR reports.updated_at > ?',
+                                  last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
+
+    #MedicalRecord.joins(:attachments, :reports).distinct.where('medical_records.created_at > ? OR medical_records.updated_at > ? OR attachments.created_at > ? OR attachments.updated_at > ? OR reports.created_at > ? OR reports.updated_at > ?', last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
 
     json = Array.new
 
     records.each do |r|
-
+      # set de antecedentes
       parsedBackgrounds = Array.new
       r.backgrounds.each do |b|
         parsedBg = {
@@ -51,7 +59,7 @@ class Sync < ApplicationRecord
         }
         parsedBackgrounds << parsedBg
       end
-
+      # set de historia
       parsedRecord = {
         :address => r.address,
         :attachments => r.attachments,
