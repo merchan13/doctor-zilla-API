@@ -3,11 +3,30 @@ class Sync < ApplicationRecord
   def self.consultations
     last_sync = self.last.sync_date
 
-    consultations = Consultation.where("updated_at > ?", last_sync)
+    consultations = Consultation.joins(:physical_exams, :operative_notes).distinct
+                                 .where('consultations.created_at > ? OR consultations.updated_at > ?
+                                        OR physical_exams.created_at > ? OR physical_exams.updated_at > ?
+                                        OR operative_notes.created_at > ? OR operative_notes.updated_at > ?',
+                                        last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
 
     json = Array.new
 
     consultations.each do |c|
+      # set de plan
+      parsedPlan = Hash.new
+      if !c.plan.nil?
+        parsedPlan = {
+          :id => c.plan.id,
+          :description => c.plan.description,
+          :emergency => c.plan.emergency,
+          :created_at => c.plan.created_at.to_formatted_s(:iso8601),
+          :updated_at => c.plan.updated_at.to_formatted_s(:iso8601),
+          :consultation_id => c.plan.consultation_id,
+          :operative_note => c.plan.operative_note,
+          :procedures => c.plan.proceduress
+        }
+      end
+
       parsedConsultation = {
         :affliction => c.affliction,
         :created_at => c.created_at.to_formatted_s(:iso8601),
@@ -17,7 +36,7 @@ class Sync < ApplicationRecord
         :id => c.id,
         :medical_record_id => c.medical_record_id,
         :note => c.note,
-        :plan => c.plan,
+        :plan => parsedPlan,
         :pressure_s => c.pressure_s,
         :pressure_d => c.pressure_d,
         :reason => c.reason,
@@ -33,15 +52,11 @@ class Sync < ApplicationRecord
   def self.medical_records
     last_sync = self.last.sync_date
 
-    #records = MedicalRecord.where("updated_at > ?", last_sync)
-
     records = MedicalRecord.joins(:attachments, :reports).distinct
                            .where('medical_records.created_at > ? OR medical_records.updated_at > ?
                                   OR attachments.created_at > ? OR attachments.updated_at > ?
                                   OR reports.created_at > ? OR reports.updated_at > ?',
                                   last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
-
-    #MedicalRecord.joins(:attachments, :reports).distinct.where('medical_records.created_at > ? OR medical_records.updated_at > ? OR attachments.created_at > ? OR attachments.updated_at > ? OR reports.created_at > ? OR reports.updated_at > ?', last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
 
     json = Array.new
 
