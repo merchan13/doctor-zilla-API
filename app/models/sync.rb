@@ -3,11 +3,10 @@ class Sync < ApplicationRecord
   def self.consultations
     last_sync = self.last.sync_date
 
-    consultations = Consultation.joins(:physical_exams, :operative_notes).distinct
+    consultations = Consultation.joins(:physical_exams).distinct
                                  .where('consultations.created_at > ? OR consultations.updated_at > ?
-                                        OR physical_exams.created_at > ? OR physical_exams.updated_at > ?
-                                        OR operative_notes.created_at > ? OR operative_notes.updated_at > ?',
-                                        last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
+                                        OR physical_exams.created_at > ? OR physical_exams.updated_at > ?',
+                                        last_sync,last_sync,last_sync,last_sync)
 
     json = Array.new
 
