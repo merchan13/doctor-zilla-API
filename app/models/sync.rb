@@ -24,7 +24,7 @@ class Sync < ApplicationRecord
           :updated_at => c.plan.updated_at.to_formatted_s(:iso8601),
           :consultation_id => c.plan.consultation_id,
           :operative_note => c.plan.operative_note,
-          :procedures => c.plan.proceduress
+          :procedures => c.plan.procedures
         }
       end
 
