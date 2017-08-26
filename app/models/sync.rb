@@ -3,12 +3,14 @@ class Sync < ApplicationRecord
   def self.consultations
     last_sync = self.last.sync_date
 
-    consultations = Consultation.joins(:physical_exams, plan: :operative_note).distinct
+    consultations = Consultation.left_outer_joins(:physical_exams, plan: :operative_note).distinct
                                  .where('consultations.created_at > ? OR consultations.updated_at > ?
                                         OR physical_exams.created_at > ? OR physical_exams.updated_at > ?
                                         OR plans.created_at > ? OR plans.updated_at > ?
                                         OR operative_notes.created_at > ? OR operative_notes.updated_at > ?',
                                         last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
+
+
 
     json = Array.new
 
@@ -68,7 +70,7 @@ class Sync < ApplicationRecord
   def self.medical_records
     last_sync = self.last.sync_date
 
-    records = MedicalRecord.joins(:attachments, :reports).distinct
+    records = MedicalRecord.left_outer_joins(:attachments, :reports).distinct
                            .where('medical_records.created_at > ? OR medical_records.updated_at > ?
                                   OR attachments.created_at > ? OR attachments.updated_at > ?
                                   OR reports.created_at > ? OR reports.updated_at > ?',
