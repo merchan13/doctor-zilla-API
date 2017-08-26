@@ -27,7 +27,21 @@ class Sync < ApplicationRecord
           :procedures => c.plan.procedures
         }
       end
-
+      # set de examenes fisicos
+      parsedPhysicalExams = Array.new
+      c.physical_exams.each do |pe|
+        parsedPE = {
+          :id => pe.id,
+          :exam_type => pe.type_es,
+          :url => pe.url,
+          :observation => pe.observation,
+          :created_at => pe.created_at.to_formatted_s(:iso8601),
+          :updated_at => pe.updated_at.to_formatted_s(:iso8601),
+          :consultation_id => pe.consultation_id
+        }
+        parsedPhysicalExams << parsedPE
+      end
+      
       parsedConsultation = {
         :affliction => c.affliction,
         :created_at => c.created_at.to_formatted_s(:iso8601),
@@ -37,13 +51,13 @@ class Sync < ApplicationRecord
         :id => c.id,
         :medical_record_id => c.medical_record_id,
         :note => c.note,
+        :physical_exams => parsedPhysicalExams,
         :plan => parsedPlan,
         :pressure_s => c.pressure_s,
         :pressure_d => c.pressure_d,
         :reason => c.reason,
         :updated_at => c.updated_at.to_formatted_s(:iso8601),
-        :weight => c.weight,
-        :physical_exams => c.parsedPE
+        :weight => c.weight
       }
       json << parsedConsultation
     end
