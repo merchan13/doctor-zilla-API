@@ -48,7 +48,7 @@ module Api::V1
           :medical_record_id => c.medical_record_id,
           :note => c.note,
           :physical_exams => parsedPhysicalExams,
-          :plan => parsePlan,
+          :plan => parsedPlan,
           :pressure_s => c.pressure_s,
           :pressure_d => c.pressure_d,
           :reason => c.reason,
