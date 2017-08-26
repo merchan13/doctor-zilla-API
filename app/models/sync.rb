@@ -41,7 +41,7 @@ class Sync < ApplicationRecord
         }
         parsedPhysicalExams << parsedPE
       end
-      
+
       parsedConsultation = {
         :affliction => c.affliction,
         :created_at => c.created_at.to_formatted_s(:iso8601),
@@ -61,6 +61,7 @@ class Sync < ApplicationRecord
       }
       json << parsedConsultation
     end
+
     json
   end
 
