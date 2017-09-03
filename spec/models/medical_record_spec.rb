@@ -34,6 +34,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should respond_to(:referred_by) }
   it { should respond_to(:profile_picture) }
   it { should respond_to(:representative_document) }
+  it { should respond_to(:old_record_number) }
 
   it { should validate_presence_of(:document) }
   it { should validate_presence_of(:document_type) }
@@ -48,6 +49,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should validate_presence_of(:insurance) }
 
   it { should validate_uniqueness_of(:document).scoped_to(:document_type).case_insensitive }
+  it { should validate_uniqueness_of(:old_record_number).case_insensitive.allow_nil }
 
   it { should allow_value('23666555').for(:document) }
   it { should allow_value('V').for(:document_type) }
@@ -63,6 +65,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should allow_value('John Wick').for(:referred_by) }
   it { should allow_value('profile_picture01.jpg').for(:profile_picture) }
   it { should allow_value('V-9555555').for(:representative_document) }
+  it { should allow_value('1').for(:old_record_number) }
 
   it { should be_valid(record) }
 

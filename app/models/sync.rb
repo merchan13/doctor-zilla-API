@@ -1,4 +1,5 @@
 class Sync < ApplicationRecord
+  validates_presence_of :sync_date
 
   def self.consultations
     last_sync = self.last.sync_date
