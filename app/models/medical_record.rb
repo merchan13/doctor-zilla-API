@@ -67,6 +67,22 @@ class MedicalRecord < ApplicationRecord
     return physics
   end
 
+  def update_background (type, description)
+    bg = self.backgrounds.where(background_type: type).first
+    if bg.nil?
+      if description != ""
+        self.backgrounds.create(background_type: type, description: description)
+      end
+    else
+      if description == "" || description == " "
+        bg.delete
+      else
+        bg.description = description
+        bg.save
+      end
+    end
+  end
+
   def imc
     if physic_data["weight"] != 0 && physic_data["height"] != 0
       imc = physic_data["weight"]/((physic_data["height"]/100) ** 2)

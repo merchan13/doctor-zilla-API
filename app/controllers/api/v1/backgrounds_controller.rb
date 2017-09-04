@@ -34,6 +34,22 @@ module Api::V1
       head :no_content
     end
 
+    # PUT /medical_records/:medical_record_id/backgrounds
+    def update_record_backgrounds
+      @record = MedicalRecord.find(params[:medical_record_id])
+
+      @record.update_background("family", params[:bg_family])
+      @record.update_background("allergy", params[:bg_allergy])
+      @record.update_background("diabetes", params[:bg_diabetes])
+      @record.update_background("asthma", params[:bg_asthma])
+      @record.update_background("heart", params[:bg_heart])
+      @record.update_background("medicine", params[:bg_medicine])
+      @record.update_background("surgical", params[:bg_surgical])
+      @record.update_background("other", params[:bg_other])
+
+      head :no_content
+    end
+
     private
       def background_params
         params.require(:background).permit( :background_type, :description, :medical_record_id )

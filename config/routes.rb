@@ -18,15 +18,17 @@ Rails.application.routes.draw do
       resources :users
       resources :syncs,             only:     [:index, :create]
 
-      get 'plans/:plan_id/procedures', to: 'procedures#index_plan', as: 'plan_procedures'
-      get 'procedures/:procedure_id/plans', to: 'plans#index_procedure', as: 'procedures_plan'
+      get 'plans/:plan_id/procedures',                        to: 'procedures#index_plan', as: 'plan_procedures'
+      get 'procedures/:procedure_id/plans',                   to: 'plans#index_procedure', as: 'procedures_plan'
 
-      get 'search_records', to: 'medical_records#search'
-      get 'latest_updates', to: 'syncs#latest_updates'
-      get 'last_sync',     to: 'syncs#last_sync'
+      put 'medical_records/:medical_record_id/backgrounds',   to: 'backgrounds#update_record_backgrounds', as: 'record_background_update'
 
-      post 'sign-in', to: 'sessions#create'
-      delete 'sign-out', to: 'sessions#destroy'
+      get 'search_records',   to: 'medical_records#search'
+      get 'latest_updates',   to: 'syncs#latest_updates'
+      get 'last_sync',        to: 'syncs#last_sync'
+
+      post 'sign-in',     to: 'sessions#create'
+      delete 'sign-out',  to: 'sessions#destroy'
     end
   end
 
