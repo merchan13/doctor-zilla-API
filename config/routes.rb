@@ -27,8 +27,8 @@ Rails.application.routes.draw do
       get 'latest_updates',   to: 'syncs#latest_updates'
       get 'last_sync',        to: 'syncs#last_sync'
 
-      post 'sign-in',     to: 'sessions#create'
-      delete 'sign-out',  to: 'sessions#destroy'
+      post    'sign-in',     to: 'sessions#create'
+      delete  'sign-out',  to: 'sessions#destroy'
     end
   end
 
