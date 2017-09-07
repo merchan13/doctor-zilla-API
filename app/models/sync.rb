@@ -19,6 +19,19 @@ class Sync < ApplicationRecord
       # set de plan
       parsedPlan = Hash.new
       if !c.plan.nil?
+        parsedOperativeNote = Hash.new
+        if !c.plan.operative_note.nil?
+          parsedOperativeNote = {
+            :id => c.plan.operative_note.id,
+            :description => c.plan.operative_note.description,
+            :find => c.plan.operative_note.find,
+            :created_at => c.plan.operative_note.created_at.to_formatted_s(:iso8601),
+            :updated_at => c.plan.operative_note.updated_at.to_formatted_s(:iso8601),
+            :plan_id => c.plan.operative_note.plan_id,
+            :diagnostic => c.plan.operative_note.diagnostic
+          }
+        end
+
         parsedPlan = {
           :id => c.plan.id,
           :description => c.plan.description,
@@ -26,7 +39,7 @@ class Sync < ApplicationRecord
           :created_at => c.plan.created_at.to_formatted_s(:iso8601),
           :updated_at => c.plan.updated_at.to_formatted_s(:iso8601),
           :consultation_id => c.plan.consultation_id,
-          :operative_note => c.plan.operative_note,
+          :operative_note => parsedOperativeNote,
           :procedures => c.plan.procedures
         }
       end
