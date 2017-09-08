@@ -13,7 +13,7 @@ module Api::V1
           render json:
           {
             auth_token: auth_token,
-            user_id: resource.id 
+            user_id: resource.id
           }
         else
           invalid_role
@@ -33,11 +33,17 @@ module Api::V1
 
     private
       def invalid_login_attempt
-        render json: { errors: [ { detail:"Error with your login or password" }]}, status: 401
+        render json:
+        {
+          errors: "Error with your login or password"
+        }, status: 401
       end
 
       def invalid_role
-        render json: { errors: [ { detail:"Only Doctors can access this application" }]}, status: 401
+        render json:
+        {
+          errors: "Only Doctors can access this application"
+        }, status: 401
       end
 
   end
