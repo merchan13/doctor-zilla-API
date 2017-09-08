@@ -35,14 +35,14 @@ module Api::V1
       def invalid_login_attempt
         render json:
         {
-          errors: "Error with your login or password"
+          errors: "La contraseña o correo que introdujo son inválidos"
         }, status: 401
       end
 
       def invalid_role
         render json:
         {
-          errors: "Only Doctors can access this application"
+          errors: "Sólo Doctores tienen acceso a la aplicación"
         }, status: 401
       end
 
