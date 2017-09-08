@@ -10,7 +10,11 @@ module Api::V1
       if resource.valid_password?(params[:user_login][:password])
         if resource.role == 'Doctor'
           auth_token = resource.generate_auth_token
-          render json: { auth_token: auth_token }
+          render json:
+          {
+            auth_token: auth_token,
+            user_id: resource.id 
+          }
         else
           invalid_role
         end
