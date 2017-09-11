@@ -26,7 +26,16 @@ module Api::V1
 
     # GET /attachments/:id
     def show
-      json_response(@attachment)
+      json = {
+        :id => @attachment.id,
+        :description => @attachment.description,
+        :url => @attachment.url.url,
+        :created_at => @attachment.created_at.to_formatted_s(:iso8601),
+        :updated_at => @attachment.updated_at.to_formatted_s(:iso8601),
+        :medical_record_id => @attachment.medical_record_id
+      }
+
+      json_response(json)
     end
 
     private
