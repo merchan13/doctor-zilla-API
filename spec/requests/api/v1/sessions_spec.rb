@@ -39,7 +39,7 @@ RSpec.describe "Sessions API", type: :request do
 
       it "returns a validation failure message" do
         expect(response.body)
-          .to match(/Error with your login or password/)
+          .to match(/La contraseña o correo que introdujo son inválidos/)
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe "Sessions API", type: :request do
 
       it "returns a validation failure message" do
         expect(response.body)
-          .to match(/Only Doctors can access this application/)
+          .to match(/Sólo Doctores tienen acceso a la aplicación/)
       end
     end
   end

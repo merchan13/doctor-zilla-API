@@ -4,14 +4,17 @@ class Sync < ApplicationRecord
   def self.consultations
     last_sync = self.last.sync_date
 
-    consultations = Consultation.left_outer_joins(:physical_exams, plan: :operative_note).distinct
+    consultations = Consultation.left_outer_joins(:diagnostics, :physical_exams, plan: :operative_note).distinct
                                  .where('consultations.created_at > ? OR consultations.updated_at > ?
                                         OR physical_exams.created_at > ? OR physical_exams.updated_at > ?
                                         OR plans.created_at > ? OR plans.updated_at > ?
-                                        OR operative_notes.created_at > ? OR operative_notes.updated_at > ?',
-                                        last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
-
-
+                                        OR operative_notes.created_at > ? OR operative_notes.updated_at > ?
+                                        OR diagnostics.created_at > ? OR diagnostics.updated_at > ?',
+                                        last_sync,last_sync,
+                                        last_sync,last_sync,
+                                        last_sync,last_sync,
+                                        last_sync,last_sync,
+                                        last_sync,last_sync)
 
     json = Array.new
 
@@ -57,11 +60,22 @@ class Sync < ApplicationRecord
         }
         parsedPhysicalExams << parsedPE
       end
+      # set de diagnosticos
+      parsedDiagnostics = Array.new
+      c.diagnostics.each do |dx|
+        parsedDX = {
+          :id => dx.id,
+          :url => dx.description,
+          :created_at => dx.created_at.to_formatted_s(:iso8601),
+          :updated_at => dx.updated_at.to_formatted_s(:iso8601)
+        }
+        parsedDiagnostics << parsedDX
+      end
 
       parsedConsultation = {
         :affliction => c.affliction,
         :created_at => c.created_at.to_formatted_s(:iso8601),
-        :diagnostic => c.diagnostic,
+        :diagnostic => parsedDiagnostics,
         :evolution => c.evolution,
         :height => c.height,
         :id => c.id,

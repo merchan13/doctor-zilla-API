@@ -18,8 +18,9 @@ Rails.application.routes.draw do
       resources :users
       resources :syncs,             only:     [:index, :create]
 
-      get 'plans/:plan_id/procedures',                        to: 'procedures#index_plan', as: 'plan_procedures'
-      get 'procedures/:procedure_id/plans',                   to: 'plans#index_procedure', as: 'procedures_plan'
+      get 'plans/:plan_id/procedures',                        to: 'procedures#index_plan',          as: 'plan_procedures'
+      get 'procedures/:procedure_id/plans',                   to: 'plans#index_procedure',          as: 'procedure_plans'
+      get 'consultations/:consultation_id/diagnostics',       to: 'diagnostics#index_consultation', as: 'consultation_diagnostics'
 
       put 'medical_records/:medical_record_id/backgrounds',   to: 'backgrounds#update_record_backgrounds', as: 'record_background_update'
 

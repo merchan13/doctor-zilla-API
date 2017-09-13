@@ -50,11 +50,22 @@ module Api::V1
           }
           parsedPhysicalExams << parsedPE
         end
+        # set de diagnosticos
+        parsedDiagnostics = Array.new
+        c.diagnostics.each do |dx|
+          parsedDX = {
+            :id => dx.id,
+            :url => dx.description,
+            :created_at => dx.created_at.to_formatted_s(:iso8601),
+            :updated_at => dx.updated_at.to_formatted_s(:iso8601)
+          }
+          parsedDiagnostics << parsedDX
+        end
 
         parsedConsultation = {
           :affliction => c.affliction,
           :created_at => c.created_at.to_formatted_s(:iso8601),
-          :diagnostic => c.diagnostic,
+          :diagnostic => parsedDiagnostics,
           :evolution => c.evolution,
           :height => c.height,
           :id => c.id,
@@ -79,7 +90,7 @@ module Api::V1
       json = {
         :affliction => @consultation.affliction,
         :created_at => @consultation.created_at.to_formatted_s(:iso8601),
-        :diagnostic => @consultation.diagnostic,
+        :diagnostic => @consultation.diagnostics,
         :evolution => @consultation.evolution,
         :height => @consultation.height,
         :id => @consultation.id,

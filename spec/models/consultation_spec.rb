@@ -5,9 +5,10 @@ RSpec.describe Consultation, type: :model do
   it { should belong_to(:medical_record) }
 
   it { should have_many(:physical_exams) }
+  it { should have_many(:consultation_diagnostics) }
+  it { should have_many(:diagnostics).through(:consultation_diagnostics) }
 
   it { should belong_to(:reason) }
-  it { should belong_to(:diagnostic) }
 
   it { should have_one(:plan) }
 

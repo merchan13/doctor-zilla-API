@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Diagnostic, type: :model do
   # Association test
-  it { should have_many(:consultations) }
+  it { should have_many(:consultation_diagnostics) }
+  it { should have_many(:consultations).through(:consultation_diagnostics) }
 
   # Validation tests
   let(:diagnostic) { FactoryGirl.create(:diagnostic) }
