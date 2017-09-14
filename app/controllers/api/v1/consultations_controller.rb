@@ -65,7 +65,7 @@ module Api::V1
         parsedConsultation = {
           :affliction => c.affliction,
           :created_at => c.created_at.to_formatted_s(:iso8601),
-          :diagnostic => parsedDiagnostics,
+          :diagnostics => parsedDiagnostics,
           :evolution => c.evolution,
           :height => c.height,
           :id => c.id,
@@ -90,7 +90,7 @@ module Api::V1
       json = {
         :affliction => @consultation.affliction,
         :created_at => @consultation.created_at.to_formatted_s(:iso8601),
-        :diagnostic => @consultation.diagnostics,
+        :diagnostics => @consultation.diagnostics,
         :evolution => @consultation.evolution,
         :height => @consultation.height,
         :id => @consultation.id,
