@@ -55,7 +55,7 @@ module Api::V1
         c.diagnostics.each do |dx|
           parsedDX = {
             :id => dx.id,
-            :url => dx.description,
+            :description => dx.description,
             :created_at => dx.created_at.to_formatted_s(:iso8601),
             :updated_at => dx.updated_at.to_formatted_s(:iso8601)
           }
