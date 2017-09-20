@@ -125,7 +125,7 @@ class Sync < ApplicationRecord
       parsedRecord = {
         :address => r.address,
         :attachments => r.attachments,
-        :backgrounds_new => parsedBackgrounds,
+        :backgrounds => parsedBackgrounds,
         :birthday => r.birthday,
         :cellphone_number => r.cellphone_number,
         :created_at => r.created_at.to_formatted_s(:iso8601),
