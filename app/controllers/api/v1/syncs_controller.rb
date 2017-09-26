@@ -36,24 +36,7 @@ module Api::V1
     ## GET /latest_data
     # retrieves the X latest medical records (with all its consultations and misc data)
     def latest_data
-      @records = Sync.latest_medical_records
-
-      @consultations = Array.new
-
-      @records.each do |r|
-        if r.consultations.any?
-          r.consultations.each do |c|
-            @consultations << c.complete_info
-          end
-        end
-      end
-
-      json = {
-        :medical_records => @records,
-        :consultations => @consultations
-      }
-
-      json_response(json)
+      json_response(Sync.latest_data)
     end
 
     # GET /last_sync

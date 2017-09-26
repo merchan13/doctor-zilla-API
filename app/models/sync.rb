@@ -152,11 +152,10 @@ class Sync < ApplicationRecord
     json
   end
 
-  def self.latest_medical_records
+  def self.latest_data
     records = MedicalRecord.order(:updated_at).take(50)
 
-    json = Array.new
-
+    recordsJson = Array.new
     records.each do |r|
       # set de antecedentes
       parsedBackgrounds = Array.new
@@ -198,10 +197,24 @@ class Sync < ApplicationRecord
         :updated_at => r.updated_at.to_formatted_s(:iso8601)
       }
 
-      json << parsedRecord
+      recordsJson << parsedRecord
     end
 
-    json
+    consultationsJson = Array.new
+    records.each do |r|
+      if r.consultations.any?
+        r.consultations.each do |c|
+          consultationsJson << c.complete_info
+        end
+      end
+    end
+
+    response = {
+        :medical_records => recordsJson,
+        :consultations => consultationsJson
+    }
+
+    response
   end
 
 end
