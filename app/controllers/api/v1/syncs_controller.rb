@@ -41,8 +41,10 @@ module Api::V1
       @consultations = Array.new
 
       @records.each do |r|
-        r.consultations.each do |c|
-          @consultations << c.complete_info
+        if r.consultations.any?
+          r.consultations.each do |c|
+            @consultations << c.complete_info
+          end
         end
       end
 
