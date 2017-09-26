@@ -103,7 +103,7 @@ class Sync < ApplicationRecord
                                   OR backgrounds.created_at > ? OR backgrounds.updated_at > ?
                                   OR attachments.created_at > ? OR attachments.updated_at > ?
                                   OR reports.created_at > ? OR reports.updated_at > ?',
-                                  last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
+                                  last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync).take(200)
 
     json = Array.new
 
@@ -149,6 +149,58 @@ class Sync < ApplicationRecord
       }
       json << parsedRecord
     end
+    json
+  end
+
+  def self.latest_medical_records
+    records = MedicalRecord.order(:updated_at).take(50)_
+
+    json = Array.new
+
+    records.each do |r|
+      # set de antecedentes
+      parsedBackgrounds = Array.new
+      r.backgrounds.each do |b|
+        parsedBg = {
+          :background_type => b.type_es,
+          :medical_record_id => b.medical_record_id,
+          :created_at => b.created_at.to_formatted_s(:iso8601),
+          :description => b.description,
+          :id => b.id,
+          :updated_at => b.updated_at.to_formatted_s(:iso8601)
+        }
+        parsedBackgrounds << parsedBg
+      end
+      # set de historia
+      parsedRecord = {
+        :address => r.address,
+        :attachments => r.attachments,
+        :backgrounds => parsedBackgrounds,
+        :birthday => r.birthday,
+        :cellphone_number => r.cellphone_number,
+        :created_at => r.created_at.to_formatted_s(:iso8601),
+        :document => r.document,
+        :document_type => r.document_type,
+        :email => r.email,
+        :first_consultation_date => r.first_consultation_date.to_formatted_s(:iso8601),
+        :gender => r.gender,
+        :id => r.id,
+        :insurance => r.insurance,
+        :last_name => r.last_name,
+        :name => r.name,
+        :occupation => r.occupation,
+        :phone_number => r.phone_number,
+        :physic_data => r.physic_data,
+        :profile_picture => r.profile_picture.url,
+        :referred_by => r.referred_by,
+        :reports => r.reports,
+        :representative_document => r.representative_document,
+        :updated_at => r.updated_at.to_formatted_s(:iso8601)
+      }
+
+      json << parsedRecord
+    end
+
     json
   end
 
