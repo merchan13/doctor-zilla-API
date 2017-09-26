@@ -103,7 +103,7 @@ class Sync < ApplicationRecord
                                   OR backgrounds.created_at > ? OR backgrounds.updated_at > ?
                                   OR attachments.created_at > ? OR attachments.updated_at > ?
                                   OR reports.created_at > ? OR reports.updated_at > ?',
-                                  last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync).take(200)
+                                  last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync,last_sync)
 
     json = Array.new
 
@@ -153,7 +153,7 @@ class Sync < ApplicationRecord
   end
 
   def self.latest_data
-    records = MedicalRecord.order(:updated_at).take(50)
+    records = MedicalRecord.order(updated_at: :desc).take(50)
 
     recordsJson = Array.new
     records.each do |r|
