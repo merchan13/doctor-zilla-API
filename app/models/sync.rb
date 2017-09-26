@@ -153,7 +153,7 @@ class Sync < ApplicationRecord
   end
 
   def self.latest_medical_records
-    records = MedicalRecord.order(:updated_at).take(50)_
+    records = MedicalRecord.order(:updated_at).take(50)
 
     json = Array.new
 
