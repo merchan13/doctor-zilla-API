@@ -53,6 +53,36 @@ class MedicalRecord < ApplicationRecord
     end
   end
 
+  def complete_info
+      # set de historia
+      parsedRecord = {
+        :address => self.address,
+        :attachments => self.attachments,
+        :backgrounds => self.jsonBackgrounds,
+        :birthday => self.birthday,
+        :cellphone_number => self.cellphone_number,
+        :created_at => self.created_at.to_formatted_s(:iso8601),
+        :document => self.document,
+        :document_type => self.document_type,
+        :email => self.email,
+        :first_consultation_date => self.first_consultation_date.to_formatted_s(:iso8601),
+        :gender => self.gender,
+        :id => self.id,
+        :insurance => self.insurance,
+        :last_name => self.last_name,
+        :name => self.name,
+        :occupation => self.occupation,
+        :old_record_number => self.old_record_number,
+        :phone_number => self.phone_number,
+        :physic_data => self.physic_data,
+        :profile_picture => self.profile_picture.url,
+        :referred_by => self.referred_by,
+        :reports => self.reports,
+        :representative_document => self.representative_document,
+        :updated_at => self.updated_at.to_formatted_s(:iso8601)
+      }
+  end
+
   def jsonBackgrounds
     parsedBackgroundsJSON = Array.new
 
