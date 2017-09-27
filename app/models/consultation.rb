@@ -63,16 +63,20 @@ class Consultation < ApplicationRecord
     end
     # set de diagnosticos
     parsedDiagnostics = Array.new
-    self.diagnostics.each do |dx|
+    consultationDXs = ConsultationDiagnostic.where(consultation_id: self.id)
+    consultationDXs.each do |cdx|
+      dx = Diagnostic.find(cdx.diagnostic_id)
+
       parsedDX = {
         :id => dx.id,
         :description => dx.description,
         :created_at => dx.created_at.to_formatted_s(:iso8601),
-        :updated_at => dx.updated_at.to_formatted_s(:iso8601)
+        :added_at => cdx.created_at.to_formatted_s(:iso8601)
       }
+
       parsedDiagnostics << parsedDX
     end
-
+    # set de consulta
     parsedConsultation = {
       :affliction => self.affliction,
       :created_at => self.created_at.to_formatted_s(:iso8601),
