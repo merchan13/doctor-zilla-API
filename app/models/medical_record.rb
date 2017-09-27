@@ -53,6 +53,25 @@ class MedicalRecord < ApplicationRecord
     end
   end
 
+  def jsonBackgrounds
+    parsedBackgroundsJSON = Array.new
+
+    self.backgrounds.each do |b|
+      parsedBg = {
+        :background_type => b.type_es,
+        :medical_record_id => b.medical_record_id,
+        :created_at => b.created_at.to_formatted_s(:iso8601),
+        :description => b.description,
+        :id => b.id,
+        :updated_at => b.updated_at.to_formatted_s(:iso8601)
+      }
+
+      parsedBackgroundsJSON << parsedBg
+    end
+
+    parsedBackgroundsJSON
+  end
+
   def physic_data
     physics =  Hash.new
     physics = { "height" => 0, "weight" => 0, "pressure_d" => "?", "pressure_s" => "?"}

@@ -58,7 +58,7 @@ module Api::V1
       json = {
         :address => @record.address,
         :attachments => @record.attachments,
-        :backgrounds => @record.parsedBackgrounds,
+        :backgrounds => @record.jsonBackgrounds,
         :birthday => @record.birthday,
         :cellphone_number => @record.cellphone_number,
         :created_at => @record.created_at.to_formatted_s(:iso8601),
@@ -80,6 +80,7 @@ module Api::V1
         :representative_document => @record.representative_document,
         :updated_at => @record.updated_at.to_formatted_s(:iso8601)
       }
+
       json_response(json)
     end
 
