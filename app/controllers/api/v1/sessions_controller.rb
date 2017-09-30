@@ -19,7 +19,7 @@ module Api::V1
             user_last_name: resource.lastname,
             user_phone: resource.phone,
             user_email: resource.email,
-            user_created: resource.created_at,
+            user_created: resource.created_at.to_formatted_s(:iso8601),
             user_avatar: resource.avatar.url
           }
         else
