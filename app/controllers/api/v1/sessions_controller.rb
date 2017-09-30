@@ -13,7 +13,14 @@ module Api::V1
           render json:
           {
             auth_token: auth_token,
-            user_id: resource.id
+            user_id: resource.id,
+            user_document: resource.document,
+            user_name: resource.name,
+            user_last_name: resource.lastname,
+            user_phone: resource.phone,
+            user_email: resource.email,
+            user_created: resource.created_at,
+            user_avatar: resource.avatar.url
           }
         else
           invalid_role

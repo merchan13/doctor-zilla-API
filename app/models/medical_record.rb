@@ -57,8 +57,8 @@ class MedicalRecord < ApplicationRecord
       # set de historia
       parsedRecord = {
         :address => self.address,
-        :attachments => self.attachments,
-        :backgrounds => self.jsonBackgrounds,
+        :attachments => self.jsonAttachments, #custom json
+        :backgrounds => self.jsonBackgrounds, #custom json
         :birthday => self.birthday,
         :cellphone_number => self.cellphone_number,
         :created_at => self.created_at.to_formatted_s(:iso8601),
@@ -77,10 +77,28 @@ class MedicalRecord < ApplicationRecord
         :physic_data => self.physic_data,
         :profile_picture => self.profile_picture.url,
         :referred_by => self.referred_by,
-        :reports => self.reports,
+        :reports => self.jsonReports, #custom json
         :representative_document => self.representative_document,
         :updated_at => self.updated_at.to_formatted_s(:iso8601)
       }
+  end
+
+  def jsonAttachments
+    parsedAttachmentsJSON = Array.new
+
+    self.attachments.each do |a|
+      parsedAttach = {
+        :medical_record_id => a.medical_record_id,
+        :created_at => a.created_at.to_formatted_s(:iso8601),
+        :description => a.description,
+        :id => a.id,
+        :updated_at => a.updated_at.to_formatted_s(:iso8601)
+      }
+
+      parsedAttachmentsJSON << parsedAttach
+    end
+
+    parsedAttachmentsJSON
   end
 
   def jsonBackgrounds
@@ -100,6 +118,25 @@ class MedicalRecord < ApplicationRecord
     end
 
     parsedBackgroundsJSON
+  end
+
+  def jsonReports
+    parsedReportsJSON = Array.new
+
+    self.reports.each do |r|
+      parsedReport = {
+        :report_type => r.report_type,
+        :medical_record_id => r.medical_record_id,
+        :created_at => r.created_at.to_formatted_s(:iso8601),
+        :description => r.description,
+        :id => r.id,
+        :updated_at => r.updated_at.to_formatted_s(:iso8601)
+      }
+
+      parsedReportsJSON << parsedReport
+    end
+
+    parsedReportsJSON
   end
 
   def physic_data
