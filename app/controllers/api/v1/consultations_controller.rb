@@ -24,7 +24,7 @@ module Api::V1
           @reason = Reason.create(description: 'Nota agregada desde App Móvil')
         end
 
-        @consultation = @record.consultations.create(consultation_params)
+        @consultation = @record.consultations.create(note: consultation_params[:note], reason: @reason)
 
         json_response(@consultation, :created)
       end
@@ -38,8 +38,8 @@ module Api::V1
     # PUT /consultations/:id
     def update
       Consultation.transaction do
-        @consultation.update(note: consultation_params[:note], reason: @reason)
-        head :no_content
+        @consultation.update(consultation_params)
+      head :no_content
       end
     end
 
