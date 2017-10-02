@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :attachments,       only:     [:index, :show]
       resources :backgrounds,       only:     [:index, :show, :update]
-      resources :consultations,     only:     [:index, :show, :update]
+      resources :consultations,     only:     [:index, :show, :update, :create]
       resources :diagnostics,       only:     [:index, :show]
       resources :insurances,        only:     [:index, :show]
       resources :medical_records,   only:     [:index, :show, :update]

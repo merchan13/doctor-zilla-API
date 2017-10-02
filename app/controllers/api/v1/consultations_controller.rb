@@ -1,6 +1,6 @@
 module Api::V1
   class ConsultationsController < ApiController
-    before_action :set_medical_record, only: [:index]
+    before_action :set_medical_record, only: [:index, :create]
     before_action :set_consultation, only: [:show, :update]
 
     # GET /consultations
@@ -15,6 +15,21 @@ module Api::V1
       json_response(json)
     end
 
+    # POST /consultations
+    def create
+      Consultation.transaction do
+        @reason = Reason.where(description: 'Nota agregada desde App Móvil').first
+
+        if @reason.nil?
+          @reason = Reason.create(description: 'Nota agregada desde App Móvil')
+        end
+
+        @consultation = @record.consultations.create(consultation_params)
+
+        json_response(@consultation, :created)
+      end
+    end
+
     # GET /consultations/:id
     def show
       json_response(@consultation.complete_info)
@@ -22,14 +37,16 @@ module Api::V1
 
     # PUT /consultations/:id
     def update
-      @consultation.update(consultation_params)
-      head :no_content
+      Consultation.transaction do
+        @consultation.update(note: consultation_params[:note], reason: @reason)
+        head :no_content
+      end
     end
 
     private
       def consultation_params
         params.require(:consultation).permit( :evolution, :note, :affliction, :weight, :height, :pressure_s,
-                                              :pressure_d, :diagnostic_id, :reason_id )
+                                              :pressure_d, :diagnostic_id, :reason_id, :record )
       end
 
       def set_consultation

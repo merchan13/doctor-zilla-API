@@ -27,7 +27,7 @@ RSpec.describe "Consultations API", type: :request do
     end
   end
 
-  # Test suite for GET /v1/users/:id
+  # Test suite for GET /v1/consultations/:id
   describe "GET /v1/consultations/:id" do
     before { get "/v1/consultations/#{consultation_id}" }
 
@@ -55,7 +55,7 @@ RSpec.describe "Consultations API", type: :request do
     end
   end
 
-  # Test suite for PUT /v1/users/:id
+  # Test suite for PUT /v1/consultations/:id
   describe "PUT /v1/consultations/:id" do
     let(:valid_attributes) { { consultation: { evolution: "New evolution" } } }
 
@@ -68,6 +68,23 @@ RSpec.describe "Consultations API", type: :request do
 
       it "returns status code 204" do
         expect(response).to have_http_status(204)
+      end
+    end
+  end
+
+  # Test suite for POST /v1/consultations/:id
+  describe "POST /v1/consultations/" do
+    let(:valid_attributes) { { record: consultation.medical_record.id, consultation: { note: "New note"} } }
+
+    context "when the record exists" do
+      before { post "/v1/consultations", params: valid_attributes }
+
+      it "creates the consultation" do
+        expect(response.body).to match(/New note/)
+      end
+
+      it "returns status code 200" do
+        expect(response).to have_http_status(201)
       end
     end
   end
