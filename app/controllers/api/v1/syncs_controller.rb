@@ -52,7 +52,9 @@ module Api::V1
     end
 
     def set_actions
-      dict = sync_params[:records_dictionary]
+      dict = params[:sync][:records_dictionary]
+
+      puts dict
 
       actions = Array.new
 
