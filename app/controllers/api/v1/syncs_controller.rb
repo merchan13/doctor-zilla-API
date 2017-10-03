@@ -61,18 +61,27 @@ module Api::V1
       dict.each do |check_rec|
         record = MedicalRecord.find(check_rec)
 
-        puts "Server: #{record.updated_at.to_formatted_s(:iso8601)} || Realm: #{dict[check_rec]}"
-
         if record.updated_at.to_formatted_s(:iso8601) > dict[check_rec]
-          puts 'server -> realm'
+          action = {
+            :id => record.id,
+            :action => 2
+          }
         elsif record.updated_at.to_formatted_s(:iso8601) < dict[check_rec]
-          puts 'realm -> server'
+          action = {
+            :id => record.id,
+            :action => 1
+          }
         elsif record.updated_at.to_formatted_s(:iso8601) == dict[check_rec]
-          puts 'iguales'
+          action = {
+            :id => record.id,
+            :action => 0
+          }
         end
 
+        actions << action
       end
 
+      actions
     end
 
     private
