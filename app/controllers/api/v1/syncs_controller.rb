@@ -59,7 +59,15 @@ module Api::V1
       actions = Array.new
 
       dict.each do |check_rec|
-        puts check_rec
+        record = MedicalRecord.find(check_rec)
+
+        if record.updated_at > dict[check_rec]
+          puts 'server -> realm'
+        elsif record.updated_at < dict[check_rec]
+          puts 'realm -> server'
+        elsif record.updated_at == dict[check_rec]
+          puts 'iguales'
+        end
       end
 
     end
