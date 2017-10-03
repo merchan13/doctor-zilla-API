@@ -52,7 +52,7 @@ module Api::V1
     end
 
     def set_actions
-      dict = params[:records_dictionary]
+      dict = sync_params[:records_dictionary]
 
       actions = Array.new
 
@@ -60,8 +60,6 @@ module Api::V1
         puts check_rec
       end
 
-
-      puts params[:records_dictionary]
     end
 
     private
