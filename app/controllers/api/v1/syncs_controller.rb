@@ -63,11 +63,11 @@ module Api::V1
 
         puts "Server: #{record.updated_at.to_formatted_s(:iso8601)} || Realm: #{dict[check_rec]}"
 
-        if record.updated_at > dict[check_rec]
+        if record.updated_at.to_formatted_s(:iso8601) > dict[check_rec]
           puts 'server -> realm'
-        elsif record.updated_at < dict[check_rec]
+        elsif record.updated_at.to_formatted_s(:iso8601) < dict[check_rec]
           puts 'realm -> server'
-        elsif record.updated_at == dict[check_rec]
+        elsif record.updated_at.to_formatted_s(:iso8601) == dict[check_rec]
           puts 'iguales'
         end
 
