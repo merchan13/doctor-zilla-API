@@ -51,9 +51,13 @@ module Api::V1
       json_response(json)
     end
 
+    def set_actions
+      puts params[:records_dictionary]
+    end
+
     private
       def sync_params
-        params.require(:sync).permit( :sync_date, :description )
+        params.require(:sync).permit( :sync_date, :description, :records_dictionary )
       end
 
   end
