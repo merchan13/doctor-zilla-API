@@ -81,7 +81,7 @@ module Api::V1
         actions << action
       end
 
-      actions
+      json_response(actions)
     end
 
     private
