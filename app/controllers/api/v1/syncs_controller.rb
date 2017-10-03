@@ -52,6 +52,15 @@ module Api::V1
     end
 
     def set_actions
+      dict = params[:records_dictionary]
+
+      actions = Array.new
+
+      dict.each do |check_rec|
+        puts check_rec
+      end
+
+
       puts params[:records_dictionary]
     end
 
