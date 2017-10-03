@@ -61,6 +61,9 @@ module Api::V1
       dict.each do |check_rec|
         record = MedicalRecord.find(check_rec)
 
+        puts "Server: #{record.updated_at} || Realm: #{dict[check_rec]}"
+
+=begin
         if record.updated_at > dict[check_rec]
           puts 'server -> realm'
         elsif record.updated_at < dict[check_rec]
@@ -68,6 +71,7 @@ module Api::V1
         elsif record.updated_at == dict[check_rec]
           puts 'iguales'
         end
+=end
       end
 
     end
