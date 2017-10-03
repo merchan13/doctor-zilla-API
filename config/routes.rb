@@ -25,10 +25,12 @@ Rails.application.routes.draw do
       put 'medical_records/:medical_record_id/backgrounds',   to: 'backgrounds#update_record_backgrounds', as: 'record_background_update'
 
       get 'search_records',     to: 'medical_records#search'
-      get 'latest_updates',     to: 'syncs#latest_updates'
-      get 'last_sync',          to: 'syncs#last_sync'
-      get 'latest_data',        to: 'syncs#latest_data'
-      get 'set_syncs_actions',  to: 'syncs#set_actions'
+
+      get 'latest_updates',       to: 'syncs#latest_updates'
+      get 'last_sync',            to: 'syncs#last_sync'
+      get 'latest_data',          to: 'syncs#latest_data'
+
+      post 'set_syncs_actions',   to: 'syncs#set_actions'
 
       post    'sign-in',     to: 'sessions#create'
       delete  'sign-out',  to: 'sessions#destroy'
