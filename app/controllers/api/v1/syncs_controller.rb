@@ -54,8 +54,6 @@ module Api::V1
     def set_actions
       dict = params[:sync][:records_dictionary]
 
-      puts dict
-
       actions = Array.new
 
       dict.each do |check_rec|
