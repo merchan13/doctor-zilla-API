@@ -152,8 +152,9 @@ class Sync < ApplicationRecord
     json
   end
 
-  def self.latest_data
-    records = MedicalRecord.order(updated_at: :desc).take(50)
+  def self.latest_data(user_logged)
+
+    records = user_logged.medical_records.order(updated_at: :desc).take(50)
 
     recordsJson = Array.new
     records.each do |r|

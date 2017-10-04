@@ -5,13 +5,12 @@ class MedicalRecord < ApplicationRecord
   validates_integrity_of  :profile_picture
   validates_processing_of :profile_picture
 
-  has_many :user_medical_records
-  has_many :users, through: :user_medical_records
   has_many :backgrounds
   has_many :consultations
   has_many :attachments
   has_many :reports
 
+  belongs_to :user
   belongs_to :insurance, optional: true
   belongs_to :occupation, optional: true
 
@@ -25,9 +24,10 @@ class MedicalRecord < ApplicationRecord
                         :phone_number,
                         :address,
                         :occupation,
-                        :insurance
+                        :insurance,
+                        :user_id
 
-  validates :document, uniqueness: { scope: :document_type, case_sensitive: false }
+  validates :document, uniqueness: { scope: [:document_type, :user_id], case_sensitive: false }
   validates :old_record_number, uniqueness: { case_sensitive: false, allow_nil: true }
 
   def full_name

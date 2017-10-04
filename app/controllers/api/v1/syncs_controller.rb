@@ -24,19 +24,12 @@ module Api::V1
       json_response(@sync, :created)
     end
 
-    # GET /latest_updates
-    def latest_updates
-      json = {
-        :consultations => Sync.consultations,
-        :medical_records => Sync.medical_records
-      }
-      json_response(json)
-    end
-
     ## GET /latest_data
     # retrieves the X latest medical records (with all its consultations and misc data)
     def latest_data
-      json_response(Sync.latest_data)
+      user = current_user
+
+      json_response(Sync.latest_data(user))
     end
 
     # GET /last_sync

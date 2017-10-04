@@ -26,7 +26,6 @@ Rails.application.routes.draw do
 
       get 'search_records',     to: 'medical_records#search'
 
-      get 'latest_updates',       to: 'syncs#latest_updates'
       get 'last_sync',            to: 'syncs#last_sync'
       get 'latest_data',          to: 'syncs#latest_data'
 
