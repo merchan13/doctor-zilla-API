@@ -68,6 +68,7 @@ class MedicalRecord < ApplicationRecord
         :first_consultation_date => self.first_consultation_date.to_formatted_s(:iso8601),
         :gender => self.gender,
         :id => self.id,
+        :important => self.important,
         :insurance => self.insurance,
         :last_name => self.last_name,
         :name => self.name,

@@ -26,6 +26,12 @@ module Api::V1
 
         @consultation = @record.consultations.create(note: consultation_params[:note], reason: @reason)
 
+        record = @consultation.medical_record
+
+        record.updated_at = @consultation.created_at
+
+        record.save
+
         json_response(@consultation, :created)
       end
     end
