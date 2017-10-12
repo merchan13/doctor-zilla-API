@@ -1,5 +1,5 @@
 module Api::V1
-  class AttachmentsController < ApiController
+  class ActivitiesController < ApiController
 
     # GET /attachments
     def index
