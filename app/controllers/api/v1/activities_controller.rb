@@ -14,7 +14,7 @@ module Api::V1
         @plans = Plan.where(consultation: Consultation.where(medical_record: @records))
 
         if @plans.count > 0
-          @procedures_total = Procedure.where(plan: @plans).count
+          @procedures_total = OperativeNote.where(plan: @plans).count
         end
       end
 
