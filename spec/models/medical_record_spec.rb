@@ -2,13 +2,12 @@ require 'rails_helper'
 
 RSpec.describe MedicalRecord, type: :model do
   # Association test
-  it { should have_many(:user_medical_records) }
-  it { should have_many(:users).through(:user_medical_records) }
   it { should have_many(:backgrounds) }
   it { should have_many(:consultations) }
   it { should have_many(:attachments) }
   it { should have_many(:reports) }
 
+  it { should belong_to(:user) }
   it { should belong_to(:insurance) }
   it { should belong_to(:occupation) }
 
@@ -48,7 +47,7 @@ RSpec.describe MedicalRecord, type: :model do
   it { should validate_presence_of(:occupation) }
   it { should validate_presence_of(:insurance) }
 
-  it { should validate_uniqueness_of(:document).scoped_to(:document_type).case_insensitive }
+  it { should validate_uniqueness_of(:document).scoped_to([:document_type, :user_id]).case_insensitive }
   it { should validate_uniqueness_of(:old_record_number).case_insensitive.allow_nil }
 
   it { should allow_value('23666555').for(:document) }

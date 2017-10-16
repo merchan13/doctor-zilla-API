@@ -17,5 +17,6 @@ FactoryGirl.define do
     old_record_number nil
     occupation
     insurance
+    user
   end
 end

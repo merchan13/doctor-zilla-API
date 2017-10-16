@@ -41,11 +41,11 @@ RSpec.describe "Syncs API", type: :request do
     end
   end
 
-  # Test suite for GET /v1/latest_updates
-  describe "GET /v1/latest_updates" do
-    before { get "/v1/latest_updates" }
+  # Test suite for GET /v1/latest_data
+  describe "GET /v1/latest_data" do
+    before { get "/v1/latest_data" }
 
-    it "returns all syncs" do
+    it "returns latest records" do
       expect(json).not_to be_empty
       expect(json.size).to eq(2)
     end
